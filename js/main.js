@@ -21,6 +21,17 @@ httpRequest.open('GET', 'data/security_rules.txt');
 httpRequest.send();
 }
 
+
+// close warning window
 function closeLayer() {
     document.getElementById("warning").classList.add("Done");
+    
+}
+
+// delete account
+let articles = document.getElementsByTagName("article");
+function deleteAccount() {
+    for (let article of articles) {
+         article.classList.add("Done"); 
+    }
 }

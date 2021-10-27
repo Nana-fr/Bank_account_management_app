@@ -26,7 +26,7 @@
 <body>
 
   <div id="warning" class="layer position-absolute">
-    <div class="position-absolute top-50 start-50 translate-middle bg-white p-2 opacity-100">
+    <div class="position-absolute top-50 start-50 translate-middle bg-white p-2">
       <p id="message" ></p><br>
       <button onclick="closeLayer()">I understand</button>
     </div>
@@ -65,24 +65,40 @@
   </nav>
 
   <main>
-    <h2 class="text-center">My banks accounts:</h2>
-    <article>
-      <h3>Bank account n°1</h3>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-      <button class="">See this bank account</button>
+
+    <h2 class="text-center py-4">My banks accounts:</h2>
+
+    <article class="card mb-5">
+      <h5 class="card-header">Current account n°$$$$$$$</h5>
+      <div class="card-body">
+        <h5 class="card-title">Owner: John DOE</h5>
+        <p class="card-text">Balance: 5 000€</p>
+        <a href="#" class="btn btn-primary m-1">See</a><a href="#" onclick="deleteAccount()" class="btn btn-danger m-1">Delete</a>
+      </div>
     </article>
 
-    <article>
-      <h3>Bank account n°1</h3>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-      <button class="">See this bank account</button>
+    <article class="card mb-5">
+      <h5 class="card-header">Savings account n°$$$$$$$</h5>
+      <div class="card-body">
+        <h5 class="card-title">Owner: John DOE </h5>
+        <p class="card-text">Balance: 30 000€</p>
+        <a href="#" class="btn btn-primary m-1">See</a><a href="#" onclick="deleteAccount()" class="btn btn-danger m-1">Delete</a>
+      </div>
     </article>
 
+    <article class="card mb-5">
+      <h5 class="card-header">ISA n°$$$$$$$</h5>
+      <div class="card-body">
+        <h5 class="card-title">Owner: John DOE</h5>
+        <p class="card-text">Balance: 15 000€</p>
+        <a href="#" class="btn btn-primary m-1">See</a><a href="#" onclick="deleteAccount()" class="btn btn-danger m-1">Delete</a>
+      </div>
+    </article>
 
   </main>
 
-  <footer class="fixed-bottom py-2 bg-bitter color-gold text-center">
-    <p>© Copyright 2021</p>
+  <footer class="py-2 bg-bitter color-gold text-center">
+    <p>Copyright © 2021</p>
   </footer>
   
 
