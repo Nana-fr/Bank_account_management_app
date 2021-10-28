@@ -25,7 +25,7 @@
 
 <body>
 
-  <div id="warning" class="layer position-absolute">
+  <div id="warning" class="position-fixed">
     <div class="position-absolute top-50 start-50 translate-middle bg-white p-2">
       <p id="message" ></p><br>
       <button onclick="closeLayer()">I understand</button>
@@ -38,7 +38,7 @@
     </figure>
     <section class="container color-gold">
       <h1 class="font-sixCaps">Piggy Bank</h1>
-      <p class="fs-2 font-sixCaps">A safe place for your coins</p>
+      <p class="fs-2 font-sixCaps">A safe place to store your coins</p>
     </section>
   </header>
 
@@ -53,6 +53,15 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="index.html">Homepage</a>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Transactions
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Transfer</a></li>
+              <li><a class="dropdown-item" href="#">Deposit</a></li>
+              <li><a class="dropdown-item" href="#">Withdrawal</a></li>
+            </ul>
           <li class="nav-item">
             <a class="nav-link" href="statistics.html">Statistics</a>
           </li>
@@ -64,16 +73,19 @@
     </div>
   </nav>
 
-  <main>
-
-    <h2 class="text-center py-4">My banks accounts:</h2>
+  <main class="container">
+    
+    <h2 class="text-center text-decoration-underline py-4">My banks accounts:</h2>
 
     <article class="card mb-5">
       <h5 class="card-header">Current account n°$$$$$$$</h5>
       <div class="card-body">
         <h5 class="card-title">Owner: John DOE</h5>
         <p class="card-text">Balance: 5 000€</p>
-        <a href="#" class="btn btn-primary m-1">See</a><a href="#" onclick="deleteAccount()" class="btn btn-danger m-1">Delete</a>
+        <a href="#" class="btn btn-primary m-1">See</a>
+        <a href="#" class="btn btn-success m-1">Deposit</a>
+        <a href="#" class="btn btn-dark m-1">Withdrawal</a>
+        <a href="#" id="0" class="btn btn-danger m-1" onClick="deleteAccount(this.id)">Delete</a>
       </div>
     </article>
 
@@ -82,7 +94,10 @@
       <div class="card-body">
         <h5 class="card-title">Owner: John DOE </h5>
         <p class="card-text">Balance: 30 000€</p>
-        <a href="#" class="btn btn-primary m-1">See</a><a href="#" onclick="deleteAccount()" class="btn btn-danger m-1">Delete</a>
+        <a href="#" class="btn btn-primary m-1">See</a>
+        <a href="#" class="btn btn-success m-1">Deposit</a>
+        <a href="#" class="btn btn-dark m-1">Withdrawal</a>
+        <a href="#" id="1" class="btn btn-danger m-1" onClick="deleteAccount(this.id)">Delete</a>
       </div>
     </article>
 
@@ -91,10 +106,33 @@
       <div class="card-body">
         <h5 class="card-title">Owner: John DOE</h5>
         <p class="card-text">Balance: 15 000€</p>
-        <a href="#" class="btn btn-primary m-1">See</a><a href="#" onclick="deleteAccount()" class="btn btn-danger m-1">Delete</a>
+        <a href="#" class="btn btn-primary m-1">See</a>
+        <a href="#" class="btn btn-success m-1">Deposit</a>
+        <a href="#" class="btn btn-dark m-1">Withdrawal</a>
+        <a href="#" id="2" class="btn btn-danger m-1" onClick="deleteAccount(this.id)">Delete</a>
       </div>
     </article>
 
+    <article id="newAccount" class="card mb-5">
+    </article>
+
+    <form action="" method="" class="">
+      <label class="" for="accountType">Type of account:</label><br>
+              <select id="accountType" name="accountType" class="">
+              <option value="">Choose</option>
+              <option value="Current account">Current account</option>
+              <option value="Savings">Savings account</option>
+              <option value="ISA">ISA</option>
+              </select><br>
+      <label class="" for="firstName">First name:</label>
+      <input type="name" id="firstName" class="form-control mt-1" name="firstName" placeholder="Ex: John">
+      <label class="" for="lastName">Last name:</label>
+      <input type="name" id="lastName" class="form-control mt-1" name="LastName" placeholder="Ex: DOE">
+      <label class="" for="deposit">Cash deposit:</label>
+      <input type="number" id="deposit" class="form-control mt-1" name="deposit" placeholder="Ex: 70" min="50">
+    </form>
+    <button class="btn btn-light my-2" type="submit" value="Confirm" onclick="createAccount()">Confirm</button>
+  
   </main>
 
   <footer class="py-2 bg-bitter color-gold text-center">
