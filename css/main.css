@@ -92,7 +92,7 @@ textarea {
   }
 
   body {
-      background-color: #dbebeb;
+      background-color: rgb(255, 255, 255);
     }
 
   .figure {
@@ -100,14 +100,19 @@ textarea {
    }
 
   h1 {
-    font-size: 3rem;
+    font-size: 4rem;
   }
-
+  header p {
+    font-size: 1.25rem;
+  }
+  h2 {
+    color:#818181;
+  }
   .bg-mystic {
     background-color: #dbebeb;
   }
   .bg-bitter {
-    background-color: #7d806f;
+    background-color: #818181;
   }
   .color-bitter {
     color: #7d806f;
@@ -124,6 +129,10 @@ textarea {
   .font-sixCaps {
     font-family: 'Six Caps', sans-serif;
   }
+  .font-Zen {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+  }
+ 
   .color-gold {
     color: rgba(255, 217, 0, 0.774);
   }
@@ -138,17 +147,69 @@ textarea {
     z-index: 2;
   }
 
+  .btn-transaction {
+    background-color: #ffe3ef;
+    color:#8b3d46;
+    border: 1px solid #818181;
+  }
 
+  @media (min-width: 576px) {
+    h1 {
+      font-size: 6rem;
+    }
+    header p {
+      font-size: 1.5rem;
+    }
+  }
   @media (min-width: 730px) {
     .figure {
       width: 30%;
     }
+    .table {
+      width: 80%;
+    }
   }
+  @media (min-width: 992px) {
+    .ms-xl-6 {
+      margin-left: 3rem;
+    }
+    .table {
+      width: 70%;
+    }
+  }
+  @media (min-width: 1200px) {
+    .ms-xl-6 {
+      margin-left: 6rem;
+    }
+    h1 {
+      font-size: 7rem;
+    }
+    header p {
+      font-size: 1.8rem;
+    }
+  }
+
 
   .Done {
     display : none;
   }
    
+  nav {
+    border-bottom: 1px solid #818181;
+  }
+  footer, .form {
+    border-top: 1px solid #818181;
+  }
+  .card, #form, table {
+    border: 1px solid #818181;
+    background-color:rgb(247, 247, 247);
+  }
+
+  tr:nth-child(even) {
+    background-color: rgba(192, 192, 192, 0.250);
+  }
+  tbody>tr:hover {background-color: silver; color: rgb(255, 255, 255)}
+
 
 /* ==========================================================================
    Helper classes
