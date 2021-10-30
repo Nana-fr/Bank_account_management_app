@@ -56,19 +56,20 @@ function deployedForm(clicked_name, clicked_type) {
 
 
 // ### Delete account ###
-
 function deleteAccount(clicked_id) {
     let n= clicked_id;
     articles[n].classList.add("d-none");
 }
 
-// ### Create account ###
+
+// ### Create account & transfer money ###
 
 // Display form
-function addForm() {
-    document.getElementById("createbtn").classList.add("d-none");
-    document.getElementById("form").classList.remove("d-none");
+function addForm(clicked_name) {
+    document.getElementsByName(clicked_name)[0].classList.add("d-none");
+    document.getElementById(clicked_name).classList.remove("d-none");
 }
+
 // Create account
 function createAccount() {
 let accountType = document.getElementById("accountType").value;
@@ -76,29 +77,52 @@ let firstName = document.getElementById("firstName").value;
 let lastName = document.getElementById("lastName").value.toUpperCase();
 let deposit = document.getElementById("deposit").value;
 let newAccount = document.getElementById("newAccount");
-newAccount.classList.remove("d-none");
-document.getElementById("form").classList.add("d-none")
-newAccount.innerHTML = `<h5 class="card-header bg-Kobi text-white text-center">${accountType} n°$$$</h5>
-                        <div class="card-body px-0 pb-0 text-center">
-                            <h5 class="card-title">Owner: ${firstName[0].toUpperCase()}${firstName.slice(1)} ${lastName}</h5>
-                            <p class="card-text mb-2">Balance: <span>${deposit}</span>€</p>
-                            <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
-                                <a href="#" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
-                                <a href="#" name="3" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)"><i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i><span class="d-none d-lg-block">Deposit</span></a>
-                                <a href="#" name="3" type="withdrawal" class="btn btn-transaction rounded text-danger m-1" onClick="deployedForm(this.name, this.type)"><i class="fas fa-coins"></i><i class="fas fa-minus fa-xs ps-1"></i><span class="d-none d-lg-block">Withdrawal</span></a>
-                                <a href="#" id="3" class="btn btn-transaction rounded m-1" onClick="deleteAccount(this.id)"><i class="fas fa-trash-alt"></i><span class="d-none d-lg-block">Delete</span></a>
-                            </ul>
-                        </div>
-                        <div class="d-none form m-3">
-                            <form action="" method="" class="text-center pt-3">
-                                <i class="fas fa-coins"></i><label class="mt-2" for="sum"></label>
-                                <input type="number" class="form-control my-2" name="sum" placeholder="Ex: 70" min="50">
-                            </form>
-                            <div class="d-flex justify-content-center">
-                                <button class="btn btn-transaction my-2" type="submit" value="Confirm">Confirm</button>
+document.getElementsByName("createAccount")[0].classList.remove("d-none");
+document.getElementById("createAccount").classList.add("d-none")
+newAccount.innerHTML += `<article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
+                            <h5 class="card-header bg-Kobi text-white text-center">${accountType} n°$$$</h5>
+                            <div class="card-body px-0 pb-0 text-center">
+                                <h5 class="card-title">Owner: ${firstName[0].toUpperCase()}${firstName.slice(1)} ${lastName}</h5>
+                                <p class="card-text mb-2">Balance: <span>${deposit}</span>€</p>
+                                <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
+                                    <a href="#" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
+                                    <a href="#" name="${articles.length}" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)"><i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i><span class="d-none d-lg-block">Deposit</span></a>
+                                    <a href="#" name="${articles.length}" type="withdrawal" class="btn btn-transaction rounded text-danger m-1" onClick="deployedForm(this.name, this.type)"><i class="fas fa-coins"></i><i class="fas fa-minus fa-xs ps-1"></i><span class="d-none d-lg-block">Withdrawal</span></a>
+                                    <a href="#" id="${articles.length}" class="btn btn-transaction rounded m-1" onClick="deleteAccount(this.id)"><i class="fas fa-trash-alt"></i><span class="d-none d-lg-block">Delete</span></a>
+                                </ul>
                             </div>
-                        </div>`;
+                            <div class="d-none form m-3">
+                                <form action="" method="" class="text-center pt-3">
+                                    <i class="fas fa-coins"></i><label class="mt-2" for="sum"></label>
+                                    <input type="number" class="form-control my-2" name="sum" placeholder="Ex: 70" min="50">
+                                </form>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-transaction my-2" type="submit" value="Confirm">Confirm</button>
+                                </div>
+                            </div></article>`;
 } 
+
+// Transfer money
+function transferMoney() {
+    // get elements
+    let accountDebit = document.getElementById("accountDebit").value;
+    let sumTransfer = document.getElementById("sumTransfer").value;
+    let accountCredit = document.getElementById("accountCredit").value;
+    let balanceDebit = articles[accountDebit].querySelector("span");
+    let balanceCredit = articles[accountCredit].querySelector("span");
+    // calculate new balance
+    let resultDebit = 0;
+    let resultCredit = 0;
+    resultDebit = parseInt(balanceDebit.innerText) - parseInt(sumTransfer);
+    resultCredit = parseInt(balanceCredit.innerText) + parseInt(sumTransfer);
+    // display new balance
+    balanceDebit.innerText = resultDebit;
+    balanceCredit.innerText = resultCredit;
+    // hide form & display button
+    document.getElementById("transferMoney").classList.add("d-none")
+    document.getElementsByName("transferMoney")[0].classList.remove("d-none");
+}
+
 
 // ##### Statistics page #####
 fetch('data/statistics.json')

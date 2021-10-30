@@ -170,12 +170,15 @@ textarea {
     width: 100vw;
     z-index: 2;
   }
+  legend {
+    border-bottom: 1px solid #818181;
+  }
   footer, .form {
     border-top: 1px solid #818181;
   }
-  .card, #form {
+  .card, .form {
     border: 1px solid #818181;
-    background:linear-gradient(45deg, rgb(196, 196, 196), rgb(255, 255, 255));
+    background:linear-gradient(45deg, rgb(221, 221, 221), rgb(255, 255, 255));
   }
 
 

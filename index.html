@@ -74,9 +74,9 @@
     <h2 class="fw-bold text-center text-decoration-underline py-5">My Banks Accounts<i class="fas fa-piggy-bank color ps-2"></i></h2>
 
     <!-- Display banks account -->
-    <div class="row justify-content-center px-2">
+    <div id="newAccount" class="row justify-content-center px-2">
 
-      <article class="card col-12 col-sm-8 col-md-7 col-lg-5 col-xxl-4 me-xl-5 mb-5 mt-lg-5 p-0">
+      <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
         <h5 class="card-header bg-Kobi text-white text-center">Current account n°$$$</h5>
         <div class="card-body px-0 pb-0 text-center">
           <h5 class="card-title">Owner: John DOE</h5>
@@ -100,7 +100,7 @@
         </div>
       </article>
 
-      <article class="card col-12 col-sm-8 col-md-7 col-lg-5 col-xxl-4 mb-5 ms-lg-5 mt-lg-5 p-0">
+      <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
         <h5 class="card-header bg-Kobi text-white text-center">Savings account n°$$$</h5>
         <div class="card-body px-0 pb-0 text-center">
           <h5 class="card-title">Owner: John DOE </h5>
@@ -124,7 +124,7 @@
         </div>
       </article>
 
-      <article class="card col-12 col-sm-8 col-md-7 col-lg-5 col-xxl-4 mb-5 mt-lg-5 p-0">
+      <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
         <h5 class="card-header bg-Kobi text-white text-center">ISA n°$$$</h5>
         <div class="card-body px-0 pb-0 text-center">
           <h5 class="card-title">Owner: John DOE</h5>
@@ -148,39 +148,80 @@
         </div>
       </article>
 
-      <!-- For new account -->
-      <article id="newAccount" class="card col-12 col-sm-8 col-md-7 col-lg-5 col-xxl-4 d-none mb-5 ms-xl-6 mt-lg-5 p-0">
-      </article>
-    
     </div>
 
-    <!-- To create new account -->
-    <div class="d-flex justify-content-center">
-      <button id="createbtn" class="btn btn-transaction mb-5" onClick="addForm()"><i class="fas fa-piggy-bank fa-lg"></i><i class="fas fa-plus fa-xs ps-1"></i><span class="d-none d-sm-block">Create a new account</span></button>
+    <!-- Buttons to create new account & transfer money -->
+    <div class="d-flex justify-content-around">
+      <button name="createAccount" class="btn btn-transaction mb-5" onClick="addForm(this.name)">
+        <i class="fas fa-piggy-bank fa-lg"></i><i class="fas fa-plus fa-xs ps-1"></i>
+        <span class="d-none d-sm-block">Create a new account</span>
+      </button>
+      <button name="transferMoney" class="btn btn-transaction mb-5" onClick="addForm(this.name)">
+        <i class="fas fa-piggy-bank fa-lg"></i>
+        <span class="fa-stack fa-lg"><i class="fas fa-exchange-alt fa-lg" style="color: #eea3c1"></i>
+          <i class="fas fa-euro-sign fa-stack-1x"></i>
+        </span>
+        <i class="fas fa-piggy-bank fa-lg"></i>
+        <span class="d-none d-sm-block">Transfer money</span>
+      </button>
     </div>
 
-    <div class="row justify-content-center">
-      <div id="form" class="d-none p-2 mb-5 col-12 col-sm-8 col-md-7 col-lg-5 col-xxl-4">
+    <div class="row justify-content-center px-2">
+      <!-- New account form-->
+      <div id="createAccount" class="d-none form mx-3 mx-lg-5 mb-5 col-11 col-sm-7 col-md-5 col-lg-4 col-xxl-3 p-0">
         <form action="" method="" class="">
           <fieldset>
-            <legend class="text-center text-decoration-underline">Create a new bank account</legend>
-          <label class="mt-2" for="accountType">Type of account:</label><br>
-                  <select id="accountType" name="accountType" class="my-1">
-                  <option value="">Choose</option>
-                  <option value="Current account">Current account</option>
-                  <option value="Savings account">Savings account</option>
-                  <option value="ISA">ISA</option>
-                  </select><br>
-          <label class="mt-2" for="firstName">First name:</label>
-          <input type="name" id="firstName" class="form-control my-1" name="firstName" placeholder="Ex: John">
-          <label class="mt-2" for="lastName">Last name:</label>
-          <input type="name" id="lastName" class="form-control my-1" name="LastName" placeholder="Ex: DOE">
-          <label class="mt-2" for="deposit">Cash deposit:</label>
-          <input type="number" id="deposit" class="form-control my-1" name="deposit" placeholder="Ex: 70" min="50">
+            <legend class="bg-Kobi text-white text-center text-decoration-underline py-2">Create a new bank account</legend>
+            <div class="px-2">
+              <label class="mt-2" for="accountType">Type of account:</label><br>
+                      <select id="accountType" name="accountType" class="my-1">
+                      <option value="">Choose</option>
+                      <option value="Current account">Current account</option>
+                      <option value="Savings account">Savings account</option>
+                      <option value="ISA">ISA</option>
+                      </select><br>
+              <label class="mt-2" for="firstName">First name:</label>
+              <input type="name" id="firstName" class="form-control my-1" name="firstName" placeholder="Ex: John">
+              <label class="mt-2" for="lastName">Last name:</label>
+              <input type="name" id="lastName" class="form-control my-1" name="LastName" placeholder="Ex: DOE">
+              <label class="mt-2" for="deposit">Cash deposit (min 50€):</label>
+              <input type="number" id="deposit" class="form-control my-1" name="deposit" placeholder="Ex: 70" min="50">
+            </div>
           </fieldset>
         </form>
         <div class="d-flex justify-content-center">
-          <button class="btn btn-transaction my-2" type="submit" value="Confirm" onclick="createAccount()">Confirm</button>
+          <button class="btn btn-transaction my-3" type="submit" value="Confirm" onclick="createAccount()">Confirm</button>
+        </div>
+      </div>
+
+      <!-- Transfer money form-->
+      <div id="transferMoney" class="d-none form mx-3 mx-lg-5 mb-5 col-11 col-sm-7 col-md-5 col-lg-4 col-xxl-3 p-0">
+        <form action="" method="" class="">
+          <fieldset>
+            <legend class="bg-Kobi text-white text-center text-decoration-underline py-2">Transfer money to another account</legend>
+            <div class="px-2">
+              <label class="mt-2" for="accountDebit">Account to debit*:</label><br>
+                    <select id="accountDebit" name="accountDebit" class="my-1">
+                    <option value="">Select</option>
+                    <option value="0">Current account n°$$$</option>
+                    <option value="1">Savings account n°$$$</option>
+                    <option value="2">ISA n°$$$</option>
+                    </select><br>
+              <label class="mt-2" for="sumTransfer">Sum of money:</label>
+              <input type="number" id="sumTransfer" class="form-control my-1" name="sumTransfer" placeholder="Ex: 70" min="50">
+              <label class="mt-2" for="accountCredit">Account to credit*:</label><br>
+                    <select id="accountCredit" name="accountCredit" class="my-1">
+                    <option value="">Select</option>
+                    <option value="0">Current account n°$$$</option>
+                    <option value="1">Savings account n°$$$</option>
+                    <option value="2">ISA n°$$$</option>
+                    </select><br>
+              <p class="py-2">*Please, note that it isn't possible to transfer money from or to an account created less that 24h.</p>
+            </div>
+          </fieldset>
+        </form>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-transaction my-2" type="submit" value="Confirm" onclick="transferMoney()">Confirm</button>
         </div>
       </div>
     </div>
