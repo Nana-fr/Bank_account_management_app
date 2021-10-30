@@ -86,59 +86,83 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+  
+  /* #### GENERAL RULES #### */
+
+  header {
+   background: linear-gradient(180deg, grey, silver);
+  }
+  header p {
+    font-size: 1.25rem;
+  }
+
   h1, p, figure {
     margin: 0;
     padding: 0;
   }
 
-  body {
-      background-color: rgb(255, 255, 255);
-    }
-
-  .figure {
-    width: 70%;
-   }
-
   h1 {
     font-size: 4rem;
   }
-  header p {
-    font-size: 1.25rem;
-  }
   h2 {
-    color:#818181;
+    color: #8b3d46;
+    font-size: 1.7rem;
   }
-  .bg-mystic {
-    background-color: #dbebeb;
+ 
+  figure {
+    width: 30%;
   }
-  .bg-bitter {
-    background-color: #818181;
-  }
-  .color-bitter {
-    color: #7d806f;
-  }
-  .color-Kobi {
-    color: #eea3c1;
-  }
-  .bg-Kobi {
-    background-color: #eea3c1;
-  }
-  .color-Cadillac {
-    color: #b85174;
-  }
+
+
+  /* #### UTILITY CLASSES #### */
+
+  /* Font-family */
+
   .font-sixCaps {
     font-family: 'Six Caps', sans-serif;
   }
   .font-Zen {
     font-family: 'Zen Kaku Gothic New', sans-serif;
   }
- 
-  .color-gold {
-    color: rgba(255, 217, 0, 0.774);
+
+
+  /* Background & font color */
+
+  .bg-Kobi {
+    background: linear-gradient(45deg,#eea3c1, rgb(248, 235, 235));
   }
-  .color2 {
+  .color {
     color: #8b3d46;
   }
+
+
+  /* Buttons */
+
+  .btn-transaction {
+    background-color: #fff;
+    color:#8b3d46;
+    border: 1px solid #818181;
+  }
+  .btn-transaction:hover, .nav-item:hover {
+    background-color: #ffe3ef;
+    color:#8b3d46;
+    transition: 1s;
+  }
+
+
+  /* Nav */
+
+  nav {
+    border-top: 1px solid #818181;
+    border-bottom: 1px solid #818181;
+  }
+  .nav-item {
+    padding: 0 1.5rem;
+    border-radius: 0.5rem;
+  }
+ 
+
+  /* ### Home page ### */
 
   #warning {
     background-color: rgba(0, 0, 0, 0.8);
@@ -146,25 +170,37 @@ textarea {
     width: 100vw;
     z-index: 2;
   }
-
-  .btn-transaction {
-    background-color: #ffe3ef;
-    color:#8b3d46;
-    border: 1px solid #818181;
+  footer, .form {
+    border-top: 1px solid #818181;
   }
+  .card, #form {
+    border: 1px solid #818181;
+    background:linear-gradient(45deg, rgb(196, 196, 196), rgb(255, 255, 255));
+  }
+
+
+  /* ### Statistics page ### */
+
+  tr:nth-child(even) {
+    background-color: rgba(192, 192, 192, 0.250);
+  }
+  tbody>tr:hover {background-color: rgb(199, 199, 199); color: rgb(255, 255, 255)}
+
+
+  /* #### MEDIA QUERY #### */
 
   @media (min-width: 576px) {
     h1 {
       font-size: 6rem;
+    }
+    h2 {
+      font-size: 2.3rem;
     }
     header p {
       font-size: 1.5rem;
     }
   }
   @media (min-width: 730px) {
-    .figure {
-      width: 30%;
-    }
     .table {
       width: 80%;
     }
@@ -188,28 +224,6 @@ textarea {
       font-size: 1.8rem;
     }
   }
-
-
-  .Done {
-    display : none;
-  }
-   
-  nav {
-    border-bottom: 1px solid #818181;
-  }
-  footer, .form {
-    border-top: 1px solid #818181;
-  }
-  .card, #form, table {
-    border: 1px solid #818181;
-    background-color:rgb(247, 247, 247);
-  }
-
-  tr:nth-child(even) {
-    background-color: rgba(192, 192, 192, 0.250);
-  }
-  tbody>tr:hover {background-color: silver; color: rgb(255, 255, 255)}
-
 
 /* ==========================================================================
    Helper classes
