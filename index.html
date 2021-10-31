@@ -78,9 +78,10 @@
 
       <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
         <h5 class="card-header bg-Kobi text-white text-center">Current account n°$$$</h5>
-        <div class="card-body px-0 pb-0 text-center">
-          <h5 class="card-title">Owner: John DOE</h5>
-          <p class="card-text mb-2">Balance: <span>5000</span>€</p>
+        <div class="card-body px-0 pb-0">
+          <h5 class="card-title text-center fw-bold mb-3">Owner: John DOE</h5>
+          <p class="card-text">Balance:  <span class="fw-bold">5000</span>€</p>
+          <p class="card-text">Last transaction:  <span class="lastTransaction fw-bold">-1000€ --- Football pools</span></p>
           <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
             <a href="#" class="btn btn-transaction rounded">See<span class="d-none d-lg-block">more</span></a>
             <a href="#" name="0" type="deposit" class="btn btn-transaction rounded text-success" onClick="deployedForm(this.name, this.type)"><i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i><span class="d-none d-lg-block">Deposit</span></a>
@@ -103,9 +104,10 @@
 
       <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
         <h5 class="card-header bg-Kobi text-white text-center">Savings account n°$$$</h5>
-        <div class="card-body px-0 pb-0 text-center">
-          <h5 class="card-title">Owner: John DOE </h5>
-          <p class="card-text mb-2">Balance: <span>30000</span>€</p>
+        <div class="card-body px-0 pb-0">
+          <h5 class="card-title text-center fw-bold mb-3">Owner: John DOE </h5>
+          <p class="card-text">Balance: <span class="fw-bold">30000</span>€</p>
+          <p class="card-text">Last transaction: <span class="lastTransaction fw-bold">+500€ --- Deposit</span></p>
           <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
             <a href="#" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
             <a href="#" name="1" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)"><i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i><span class="d-none d-lg-block">Deposit</span></a>
@@ -128,9 +130,10 @@
 
       <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
         <h5 class="card-header bg-Kobi text-white text-center">ISA n°$$$</h5>
-        <div class="card-body px-0 pb-0 text-center">
-          <h5 class="card-title">Owner: John DOE</h5>
-          <p class="card-text mb-2">Balance: <span>15000</span>€</p>
+        <div class="card-body px-0 pb-0">
+          <h5 class="card-title text-center fw-bold mb-3">Owner: John DOE</h5>
+          <p class="card-text">Balance: <span class="fw-bold">15000</span>€</p>
+          <p class="card-text">Last transaction: <span class="lastTransaction fw-bold">-1500€ --- Withdrawal</span></p>
           <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
             <a href="#" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
             <a href="#" name="2" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)"><i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i><span class="d-none d-lg-block">Deposit</span></a>
@@ -150,25 +153,9 @@
           </div>
         </div>
       </article>
-
     </div>
 
-    <!-- Buttons to create new account & transfer money -->
-    <div class="d-flex justify-content-around">
-      <button name="createAccount" class="btn btn-transaction mb-5" onClick="addForm(this.name)">
-        <i class="fas fa-piggy-bank fa-lg"></i><i class="fas fa-plus fa-xs ps-1"></i>
-        <span class="d-none d-sm-block">Create a new account</span>
-      </button>
-      <button name="transferMoney" class="btn btn-transaction mb-5" onClick="addForm(this.name)">
-        <i class="fas fa-piggy-bank fa-lg"></i>
-        <span class="fa-stack fa-lg"><i class="fas fa-exchange-alt fa-lg" style="color: #eea3c1"></i>
-          <i class="fas fa-euro-sign fa-stack-1x"></i>
-        </span>
-        <i class="fas fa-piggy-bank fa-lg"></i>
-        <span class="d-none d-sm-block">Transfer money</span>
-      </button>
-    </div>
-
+    <!-- New account & transfer Form -->
     <div class="row justify-content-center px-2">
       <!-- New account form-->
       <div id="createAccount" class="d-none form mx-3 mx-lg-5 mb-5 col-11 col-sm-7 col-md-5 col-lg-4 col-xxl-3 p-0">
@@ -235,6 +222,24 @@
         </div>
       </div>
     </div>
+
+    <!-- Buttons to create new account & transfer money -->
+    <div class="d-flex justify-content-around">
+      <button name="createAccount" class="btn btn-transaction mb-5" onClick="addForm(this.name)">
+        <i class="fas fa-piggy-bank fa-lg"></i><i class="fas fa-plus fa-xs ps-1"></i>
+        <span class="d-none d-sm-block">Create a new account</span>
+      </button>
+      <button name="transferMoney" class="btn btn-transaction mb-5" onClick="addForm(this.name)">
+        <i class="fas fa-piggy-bank fa-lg"></i>
+        <span class="fa-stack fa-lg"><i class="fas fa-exchange-alt fa-lg" style="color: #eea3c1"></i>
+          <i class="fas fa-euro-sign fa-stack-1x"></i>
+        </span>
+        <i class="fas fa-piggy-bank fa-lg"></i>
+        <span class="d-none d-sm-block">Transfer money</span>
+      </button>
+    </div>
+
+    
   </main>
 
   <!-- #### Footer #### -->

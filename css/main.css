@@ -180,7 +180,9 @@ textarea {
     border: 1px solid #818181;
     background:linear-gradient(45deg, rgb(221, 221, 221), rgb(255, 255, 255));
   }
-
+  .card-text {
+    padding: 0 1rem;
+  }
 
   /* ### Statistics page ### */
 

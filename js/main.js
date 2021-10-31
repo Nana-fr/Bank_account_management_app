@@ -74,10 +74,13 @@ function deployedForm(clicked_name, clicked_type) {
             // Calculate new balance
             if (validation) {
                 let balance = articles[a].querySelector("span");
+                let lastTransaction = articles[a].querySelector(".lastTransaction");
                 if (x==="deposit") {
-                    result = parseInt(balance.innerText) + parseInt(sum.value); 
+                    result = parseInt(balance.innerText) + parseInt(sum.value);
+                    lastTransaction.innerHTML = `+${sum.value}€ --- Deposit`;
                 } else {
                     result = parseInt(balance.innerText) - parseInt(sum.value);
+                    lastTransaction.innerHTML = `-${sum.value}€ --- Withdrawal`;
                 }
                 form.classList.add("d-none");
                 btnsBloc[a].classList.remove("d-none");
@@ -105,9 +108,10 @@ function createAccount() {
     document.getElementById("createAccount").classList.add("d-none")
     newAccount.innerHTML += `<article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
                                 <h5 class="card-header bg-Kobi text-white text-center">${accountType.value} n°$$$</h5>
-                                <div class="card-body px-0 pb-0 text-center">
-                                    <h5 class="card-title">Owner: ${firstName.value.toLowerCase()[0].toUpperCase()}${firstName.value.toLowerCase().slice(1)} ${lastName.value.toUpperCase()}</h5>
-                                    <p class="card-text mb-2">Balance: <span>${deposit.value}</span>€</p>
+                                <div class="card-body px-0 pb-0">
+                                    <h5 class="card-title text-center fw-bold mb-3">Owner: ${firstName.value.toLowerCase()[0].toUpperCase()}${firstName.value.toLowerCase().slice(1)} ${lastName.value.toUpperCase()}</h5>
+                                    <p class="card-text">Balance: <span class="fw-bold">${deposit.value}</span>€</p>
+                                    <p class="card-text">Last transaction: <span class="lastTransaction fw-bold">+${deposit.value}€ --- Deposit new account</span></p>
                                     <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
                                         <a href="#" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
                                         <a href="#" name="${articles.length}" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)"><i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i><span class="d-none d-lg-block">Deposit</span></a>
@@ -159,7 +163,9 @@ function checkNewAccount() {
 // Transfer money
 function transferMoney() {
     let balanceDebit = articles[accountDebit.value].querySelector("span");
+    let lastTransactionDebit = articles[accountDebit.value].querySelector(".lastTransaction");
     let balanceCredit = articles[accountCredit.value].querySelector("span");
+    let lastTransactionCredit = articles[accountCredit.value].querySelector(".lastTransaction");
     // calculate new balance
     let resultDebit = 0;
     let resultCredit = 0;
@@ -168,6 +174,9 @@ function transferMoney() {
     // display new balance
     balanceDebit.innerText = resultDebit;
     balanceCredit.innerText = resultCredit;
+    //display last operation
+    lastTransactionDebit.innerHTML = `-${sumTransfer.value}€ --- Transfer to ${articles[accountCredit.value].querySelector("h5").innerText}`;
+    lastTransactionCredit.innerText = `+${sumTransfer.value}€ --- Transfer from ${articles[accountDebit.value].querySelector("h5").innerText}`;
     // hide form & display button
     document.getElementById("transferMoney").classList.add("d-none")
     document.getElementsByName("transferMoney")[0].classList.remove("d-none");
