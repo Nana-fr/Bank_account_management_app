@@ -1,2 +1,2 @@
-Warning!
+<i class="fas fa-exclamation-triangle pe-2"></i>Warning!<br>
 Don't give your password to other people.
