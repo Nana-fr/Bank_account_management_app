@@ -1,6 +1,12 @@
-// ###### Homepage ######
+// ###### HOMEPAGE ######
 
-// ### Layer ###
+// ### GENERAL VARIABLES ###
+let sumRegex= /^[1-9]\d+$/g;
+let nameRegex= /^[\p{Letter}]{3,20}$|^[\p{Letter}]+[-][\p{Letter}]+$/gui;
+let articles = document.getElementsByTagName("article");
+let btnsBloc = document.getElementsByClassName("btnsBloc");
+
+// ### LAYER ###
 displayLayer();
 function displayLayer() {
     let httpRequest = new XMLHttpRequest();
@@ -21,12 +27,7 @@ function closeLayer() {
     document.getElementById("warning").classList.add("d-none");
 }
 
-let sumRegex= /^[1-9]\d+$/g;
-let nameRegex= /^[\p{Letter}]{3,20}$|^[\p{Letter}]+[-][\p{Letter}]+$/gui;
-let articles = document.getElementsByTagName("article");
-let btnsBloc = document.getElementsByClassName("btnsBloc");
-
-// ### Delete account ###
+// ### DELETE ACCOUNT ###
 function deleteAccount(clicked_id) {
     let n= clicked_id;
     articles[n].classList.add("d-none");
@@ -46,7 +47,7 @@ function validateInput(validation, element, smallHelp, helpText) {
     }
   }
 
-// ### Deposit & withdrawal ###
+// ### DEPOSIT & WITHDRAWAL ###
 
 // Display form & hide buttons
 function deployedForm(clicked_name, clicked_type) {
@@ -97,7 +98,7 @@ function deployedForm(clicked_name, clicked_type) {
 }
 
 
-// ### Function for create account & transfer money ###
+// ### CREATE ACCOUNT & TRANSFER MONEY ###
 
 // Display form
 function addForm(clicked_name) {
@@ -105,7 +106,7 @@ function addForm(clicked_name) {
     document.getElementById(clicked_name).classList.remove("d-none");
 }
 
-// Create new account
+// ### Create new account ###
 function createAccount() {
     let newAccount = document.getElementById("newAccount");
     document.getElementsByName("createAccount")[0].classList.remove("d-none");
@@ -117,10 +118,23 @@ function createAccount() {
                                     <p class="card-text">Balance: <span class="fw-bold">${deposit.value}</span>€</p>
                                     <p class="card-text">Last transaction: <span class="lastTransaction text-success fw-bold">+${deposit.value}€ --- Deposit new account</span></p>
                                     <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
-                                        <a href="#" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
-                                        <a href="#" name="${articles.length}" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)"><i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i><span class="d-none d-lg-block">Deposit</span></a>
-                                        <a href="#" name="${articles.length}" type="withdrawal" class="btn btn-transaction rounded text-danger m-1" onClick="deployedForm(this.name, this.type)"><i class="fas fa-coins"></i><i class="fas fa-minus fa-xs ps-1"></i><span class="d-none d-lg-block">Withdrawal</span></a>
-                                        <a href="#" id="${articles.length}" class="btn btn-transaction rounded m-1" onClick="deleteAccount(this.id)"><i class="fas fa-trash-alt"></i><span class="d-none d-lg-block">Delete</span></a>
+                                        <li>
+                                            <a href="#" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" name="${articles.length}" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)">
+                                            <i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i>
+                                            <span class="d-none d-lg-block">Deposit</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" name="${articles.length}" type="withdrawal" class="btn btn-transaction rounded text-danger m-1" onClick="deployedForm(this.name, this.type)">
+                                            <i class="fas fa-coins"></i><i class="fas fa-minus fa-xs ps-1"></i>
+                                            <span class="d-none d-lg-block">Withdrawal</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" id="${articles.length}" class="btn btn-transaction rounded m-1" onClick="deleteAccount(this.id)">
+                                            <i class="fas fa-trash-alt"></i><span class="d-none d-lg-block">Delete</span></a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="d-none form m-3">
@@ -164,7 +178,7 @@ function checkNewAccount() {
 }
 
 
-// Transfer money
+// ### Transfer money ###
 function transferMoney() {
     let balanceDebit = articles[accountDebit.value].querySelector("span");
     let lastTransactionDebit = articles[accountDebit.value].querySelector(".lastTransaction");
@@ -191,6 +205,7 @@ function transferMoney() {
     document.getElementById("transferMoney").classList.add("d-none")
     document.getElementsByName("transferMoney")[0].classList.remove("d-none");
 }
+
 // Check transfer money form input
 function checkTransferMoney() {
     // check accountDebit select
@@ -220,43 +235,3 @@ function checkTransferMoney() {
         transferMoney()
     }
 }
-
-
-// ##### Statistics page #####
-fetch('data/statistics.json')
-.then(function(data) {
-    if(data.ok) {
-        data.json().then(function(data){
-            let table = document.getElementById("table");
-            for (let value in data) {
-                table.innerHTML += `<td>${value}</td><td>${data[value]}</td>`;   
-            }
-        })
-    }
-});
-
-
-// ##### Blog page #####
-fetch('https://oc-jswebsrv.herokuapp.com/api/articles')
-.then(function(response) {
-    if (response.ok) {
-        response.json().then(function(response) {
-            let blog = document.getElementById("blog");
-                for (let i=0; i<response.length; i++) {
-                    blog.innerHTML += `<article class="card col-10 col-sm-7 col-md-5 col-lg-4 col-xl-3 mb-5 mt-md-5 mx-2 mx-md-4 p-0">
-                                            <h5 class="card-header bg-Kobi text-white">${response[i].titre} n°${response[i].id}</h5>
-                                            <p class="card-body">${response[i].contenu}</p>
-                                            <div class="d-flex justify-content-center pb-2">
-                                                <button class="btn btn-transaction m-1">See</button>
-                                            </div>
-                                        </article>`;
-                }
-
-        })
-    }
-
-});
-
-
-
-
