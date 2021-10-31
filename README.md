@@ -2,7 +2,7 @@
 
 This is a fictive website that permits user to create and manage his banks accounts.
 
-Functional specifications:
+## Functional specifications:
 
 * Homepage:
 	- a layer on the page informs the user of the security rules. The security rules are inside a text file and they are display via AJAX.
@@ -14,11 +14,12 @@ Functional specifications:
 	- check forms via JS.
 	- make forms functional via JS.
 * Statistics page:
-	- a table display currency rates via AJAX. The informations are inside a JSON file.
+	- a table display exchange rate via AJAX. The informations are inside a JSON file.
 * Blog page:
 	- display articles via API https://oc-jswebsrv.herokuapp.com/api/articles
 
-Technical specifications:
+## Technical specifications:
+
 * HTML5
 * CSS3
 * Framework Boostrap5
