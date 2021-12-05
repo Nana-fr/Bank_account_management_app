@@ -1,75 +1,18 @@
-<!doctype html>
-<html class="no-js" lang="EN">
+  <!-- #### Header #### -->
+  <?php
+  require "data/accounts.php";
+  include "template/header.php";
+  include "template/nav.php";
+  ?>
 
-<head>
-  <meta charset="utf-8">
-  <title>Piggy Bank</title>
-  <meta name="description" content="Bank account management app">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="apple-touch-icon" href="icon.png">
-  <!-- Place favicon.ico in the root directory -->
-  <link rel="icon" href="piggy_favicon.ico">
-  
-  
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
-
-  <meta name="theme-color" content="#fafafa">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Six+Caps&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/1911e49993.js" crossorigin="anonymous"></script>
-</head>
-
-<body>
-
-  <!-- #### Layer #### -->
-  <div id="warning" class="position-fixed">
+    <!-- #### Layer #### -->
+  <div id="warning" class="position-fixed top-0 start-0">
     <div class="position-absolute top-50 start-50 translate-middle bg-white p-2">
       <p id="message"></p><br>
       <button class="btn btn-transaction" onclick="closeLayer()">I understand</button>
     </div>
   </div>
 
-  <!-- #### Header #### -->
-  <header class="d-none d-sm-block py-3">
-    <div class="d-flex align-items-center">
-      <figure class="figure d-none d-lg-block ps-3">
-      <img class="img-fluid" src="img/piggy_bank.png" alt="piggy bank logo"/>
-      </figure>
-      <section class="container text-white ps-5">
-        <h1 class="font-sixCaps">Piggy Bank</h1>
-        <p class="font-Zen">A safe place to store your coins</p>
-      </section>
-    </div>
-  </header>
-
-  <!-- #### Nav #### -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-Kobi font-sixCaps fs-1 mb-2">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.html"><i class="fas fa-piggy-bank fa-lg color pe-1"></i><span class="color fs-4">Piggy Bank</span></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="index.html"><i class="fas fa-university color fa-xs pe-2"></i>Homepage</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="statistics.html"><i class="fas fa-chart-line color fa-xs pe-2"></i>Statistics</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="blog.html"><i class="far fa-newspaper color fa-xs pe-2"></i>Blog</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
   <!-- #### Homepage #### -->
   <main class="container px-3 font-Zen">
@@ -78,9 +21,10 @@
 
     <!-- Display banks account -->
     <div id="newAccount" class="row justify-content-center px-2">
-
+    
+    <?php get_accounts();?>
       <!-- first bank account -->
-      <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
+      <!-- <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
         <h5 class="card-header bg-Kobi text-white text-center">Current account n°$$$</h5>
         <div class="card-body px-0 pb-0">
           <h5 class="card-title text-center fw-bold mb-3">Owner: John DOE</h5>
@@ -106,9 +50,9 @@
               <span class="d-none d-lg-block">Delete</span></a>
             </li>  
           </ul>
-        </div>
+        </div> -->
         <!-- deposit & withdrawal form -->
-        <div class="d-none form m-3">
+        <!-- <div class="d-none form m-3">
           <form action="" method="" class="text-center pt-3">
             <i class="fas fa-coins"></i><label class="mt-2" for="sum"></label>
             <input type="number" class="form-control my-2" name="sum" placeholder="Ex: 70" min="50">
@@ -118,10 +62,10 @@
             <button class="btn btn-transaction my-2" type="submit" value="Confirm">Confirm</button>
           </div>
         </div>
-      </article>
+      </article> -->
 
       <!-- second bank account -->
-      <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
+      <!-- <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
         <h5 class="card-header bg-Kobi text-white text-center">Savings account n°$$$</h5>
         <div class="card-body px-0 pb-0">
           <h5 class="card-title text-center fw-bold mb-3">Owner: John DOE </h5>
@@ -147,9 +91,9 @@
               <span class="d-none d-lg-block">Delete</span></a>
             </li>  
           </ul>
-        </div>
+        </div> -->
         <!-- deposit & withdrawal form -->
-        <div class="d-none form m-3">
+        <!-- <div class="d-none form m-3">
           <form action="" method="" class="text-center pt-3">
             <i class="fas fa-coins"></i><label class="mt-2" for="sum"></label>
             <input type="number" class="form-control my-2" name="sum" placeholder="Ex: 70" min="50">
@@ -159,10 +103,10 @@
             <button class="btn btn-transaction my-2" type="submit" value="Confirm">Confirm</button>
           </div>
         </div>
-      </article>
+      </article> -->
 
       <!-- third bank account -->
-      <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
+      <!-- <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
         <h5 class="card-header bg-Kobi text-white text-center">ISA n°$$$</h5>
         <div class="card-body px-0 pb-0">
           <h5 class="card-title text-center fw-bold mb-3">Owner: John DOE</h5>
@@ -187,9 +131,9 @@
               <i class="fas fa-trash-alt"></i><span class="d-none d-lg-block">Delete</span></a>
             </li>  
           </ul>
-        </div>
+        </div> -->
         <!-- deposit & withdrawal form -->
-        <div class="d-none form m-3">
+        <!-- <div class="d-none form m-3">
           <form action="" method="" class="text-center pt-3">
             <i class="fas fa-coins"></i><label class="mt-2" for="sum"></label>
             <input type="number" class="form-control my-2" name="sum" placeholder="Ex: 70" min="50">
@@ -199,7 +143,7 @@
             <button class="btn btn-transaction my-2" type="submit" value="Confirm">Confirm</button>
           </div>
         </div>
-      </article>
+      </article> -->
 
     </div>
 
@@ -208,7 +152,7 @@
       
       <!-- New account form-->
       <div id="createAccount" class="d-none form mx-3 mx-lg-5 mb-5 col-11 col-sm-7 col-md-5 col-lg-4 col-xxl-3 p-0">
-        <form action="" method="" class="">
+        <form action="submit_account_form.php" method="post" class="">
           <fieldset>
             <legend class="bg-Kobi text-white text-center text-decoration-underline py-2">Create a new bank account</legend>
             <div class="px-2">
@@ -231,10 +175,10 @@
               <small id="depositHelp" class="form-text"></small><br>
             </div>
           </fieldset>
-        </form>
-        <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-center">
           <button class="btn btn-transaction my-3" type="submit" value="Confirm" onclick="checkNewAccount()">Confirm</button>
         </div>
+        </form>
       </div>
 
       <!-- Transfer money form-->
@@ -290,23 +234,9 @@
  
   </main>
 
-  <!-- #### Footer #### -->
-  <footer class="py-2 py-lg-3 mt-5 bg-Kobi color font-Zen text-center">
-    <p>Copyright © 2021</p>
-  </footer>
+      <!-- #### Footer #### -->
+    <?php
+      include "template/footer.php";
+    ?>
+    <script src="js/main.js"></script>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
-
-  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
-  </script>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
-</body>
-
-</html>

@@ -119,7 +119,7 @@ function createAccount() {
                                     <p class="card-text">Last transaction: <span class="lastTransaction text-success fw-bold">+${deposit.value}€ --- Deposit new account</span></p>
                                     <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
                                         <li>
-                                            <a href="#" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
+                                            <a href="account.php?id=${articles.length}" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
                                         </li>
                                         <li>
                                             <a href="#" name="${articles.length}" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)">
