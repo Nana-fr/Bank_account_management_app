@@ -1,17 +1,16 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>467</x><y>150</y><w>210</w><h>170</h></coordinates><panel_attributes>Accounts Table
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>467</x><y>182</y><w>210</w><h>150</h></coordinates><panel_attributes>Accounts Table
 --
 id : INT PK
 --
 AccountNb : INT
 --
-AccountType : TEXT
+Account_type_name_id: FK
 --
 Customer_id : FK
 --
-Balance: INT
+Balance: DECIMAL
 --
-Created date : DATE
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>119</x><y>80</y><w>210</w><h>230</h></coordinates><panel_attributes>Customers table
+Created date : DATE</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>119</x><y>72</y><w>210</w><h>250</h></coordinates><panel_attributes>Customers table
 --
 id : INT PK
 --
@@ -23,6 +22,8 @@ Address : VARCHAR
 --
 Postcode : INT
 --
+City : VARCHAR
+--
 Country : TEXT
 --
 PhoneNb : INT
@@ -31,20 +32,26 @@ Email : VARCHAR
 --
 Login : VARCHAR
 --
-Password : VARCHAR</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>289</x><y>520</y><w>210</w><h>190</h></coordinates><panel_attributes>Transactions table
+Password : VARCHAR</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>299</x><y>412</y><w>210</w><h>210</h></coordinates><panel_attributes>Transactions table
 --
 id : PK
 --
 TransactionNb : INT
 --
-Name : TEXT
+Transaction_name : VARCHAR
 --
 Description : TEXT
 --
-Amount : INT
+Amount : DECIMAL
 --
-Account_nb : FK
+Transaction_type : CHAR
+--
+Account_id : FK
 --
 Customer_id : FK
 --
-Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>409</x><y>310</y><w>180</w><h>230</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;210;160;10</additional_attributes></element><element><id>Relation</id><coordinates><x>319</x><y>230</y><w>170</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>150;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>219</x><y>300</y><w>170</w><h>240</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>150;220;10;10</additional_attributes></element></diagram>
+Transaction_date</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>419</x><y>322</y><w>170</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;90;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>319</x><y>242</y><w>170</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>150;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>219</x><y>312</y><w>180</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>160;100;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>6</y><w>210</w><h>70</h></coordinates><panel_attributes>Accounts_type Table
+--
+id: INT PK
+--
+Account_type_name : VARCHAR</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>70</y><w>30</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element></diagram>
