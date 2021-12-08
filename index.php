@@ -21,130 +21,7 @@
 
     <!-- Display banks account -->
     <div id="newAccount" class="row justify-content-center px-2">
-    
-    <?php get_accounts();?>
-      <!-- first bank account -->
-      <!-- <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
-        <h5 class="card-header bg-Kobi text-white text-center">Current account n°$$$</h5>
-        <div class="card-body px-0 pb-0">
-          <h5 class="card-title text-center fw-bold mb-3">Owner: John DOE</h5>
-          <p class="card-text">Balance:  <span class="fw-bold">5000</span>€</p>
-          <p class="card-text">Last transaction:  <span class="lastTransaction text-danger fw-bold">-1000€ --- Football pools</span></p>
-          <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
-            <li>
-              <a href="#" class="btn btn-transaction rounded">See<span class="d-none d-lg-block">more</span></a>
-            </li>
-            <li>
-              <a href="#" name="0" type="deposit" class="btn btn-transaction rounded text-success" onClick="deployedForm(this.name, this.type)">
-              <i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i>
-              <span class="d-none d-lg-block">Deposit</span></a>
-            </li>
-            <li>
-              <a href="#" name="0" type="withdrawal" class="btn btn-transaction rounded text-danger" onClick="deployedForm(this.name, this.type)">
-              <i class="fas fa-coins"></i><i class="fas fa-minus fa-xs ps-1"></i>
-              <span class="d-none d-lg-block">Withdrawal</span></a>
-            </li>
-            <li>
-              <a href="#" id="0" class="btn btn-transaction rounded" onClick="deleteAccount(this.id)">
-              <i class="fas fa-trash-alt"></i>
-              <span class="d-none d-lg-block">Delete</span></a>
-            </li>  
-          </ul>
-        </div> -->
-        <!-- deposit & withdrawal form -->
-        <!-- <div class="d-none form m-3">
-          <form action="" method="" class="text-center pt-3">
-            <i class="fas fa-coins"></i><label class="mt-2" for="sum"></label>
-            <input type="number" class="form-control my-2" name="sum" placeholder="Ex: 70" min="50">
-            <small class="form-text help"></small>
-          </form>
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-transaction my-2" type="submit" value="Confirm">Confirm</button>
-          </div>
-        </div>
-      </article> -->
-
-      <!-- second bank account -->
-      <!-- <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
-        <h5 class="card-header bg-Kobi text-white text-center">Savings account n°$$$</h5>
-        <div class="card-body px-0 pb-0">
-          <h5 class="card-title text-center fw-bold mb-3">Owner: John DOE </h5>
-          <p class="card-text">Balance: <span class="fw-bold">30000</span>€</p>
-          <p class="card-text">Last transaction: <span class="lastTransaction text-success fw-bold">+500€ --- Deposit</span></p>
-          <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
-            <li>
-              <a href="#" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
-            </li>
-            <li>
-              <a href="#" name="1" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)">
-              <i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i>
-              <span class="d-none d-lg-block">Deposit</span></a>
-            </li>
-            <li>
-              <a href="#" name="1" type="withdrawal" class="btn btn-transaction rounded text-danger m-1" onClick="deployedForm(this.name, this.type)">
-              <i class="fas fa-coins"></i><i class="fas fa-minus fa-xs ps-1"></i>
-              <span class="d-none d-lg-block">Withdrawal</span></a>
-            </li>
-            <li>
-              <a href="#" id="1" class="btn btn-transaction rounded m-1" onClick="deleteAccount(this.id)">
-              <i class="fas fa-trash-alt"></i>
-              <span class="d-none d-lg-block">Delete</span></a>
-            </li>  
-          </ul>
-        </div> -->
-        <!-- deposit & withdrawal form -->
-        <!-- <div class="d-none form m-3">
-          <form action="" method="" class="text-center pt-3">
-            <i class="fas fa-coins"></i><label class="mt-2" for="sum"></label>
-            <input type="number" class="form-control my-2" name="sum" placeholder="Ex: 70" min="50">
-            <small class="form-text help"></small>
-          </form>
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-transaction my-2" type="submit" value="Confirm">Confirm</button>
-          </div>
-        </div>
-      </article> -->
-
-      <!-- third bank account -->
-      <!-- <article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
-        <h5 class="card-header bg-Kobi text-white text-center">ISA n°$$$</h5>
-        <div class="card-body px-0 pb-0">
-          <h5 class="card-title text-center fw-bold mb-3">Owner: John DOE</h5>
-          <p class="card-text">Balance: <span class="fw-bold">15000</span>€</p>
-          <p class="card-text">Last transaction: <span class="lastTransaction text-danger fw-bold">-1500€ --- Withdrawal</span></p>
-          <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
-            <li>
-              <a href="#" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
-            </li>
-            <li>
-              <a href="#" name="2" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)">
-              <i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i>
-              <span class="d-none d-lg-block">Deposit</span></a>
-            </li>
-            <li>
-              <a href="#" name="2" type="withdrawal" class="btn btn-transaction rounded text-danger m-1" onClick="deployedForm(this.name, this.type)">
-              <i class="fas fa-coins"></i><i class="fas fa-minus fa-xs ps-1"></i>
-              <span class="d-none d-lg-block">Withdrawal</span></a>
-            </li>
-            <li>
-              <a href="#" id="2" class="btn btn-transaction rounded m-1" onClick="deleteAccount(this.id)">
-              <i class="fas fa-trash-alt"></i><span class="d-none d-lg-block">Delete</span></a>
-            </li>  
-          </ul>
-        </div> -->
-        <!-- deposit & withdrawal form -->
-        <!-- <div class="d-none form m-3">
-          <form action="" method="" class="text-center pt-3">
-            <i class="fas fa-coins"></i><label class="mt-2" for="sum"></label>
-            <input type="number" class="form-control my-2" name="sum" placeholder="Ex: 70" min="50">
-            <small class="form-text help"></small>
-          </form>
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-transaction my-2" type="submit" value="Confirm">Confirm</button>
-          </div>
-        </div>
-      </article> -->
-
+      <?php get_accounts();?>
     </div>
 
     <!-- New account & transfer Form -->
@@ -157,12 +34,12 @@
             <legend class="bg-Kobi text-white text-center text-decoration-underline py-2">Create a new bank account</legend>
             <div class="px-2">
               <label class="mt-2" for="accountType">Type of account:</label><br>
-                      <select id="accountType" name="accountType" class="my-1">
+                    <select id="accountType" name="accountType" class="my-1">
                       <option value="">Choose</option>
                       <option value="Current account">Current account</option>
                       <option value="Savings account">Savings account</option>
                       <option value="ISA">ISA</option>
-                      </select><br>
+                    </select><br>
               <small id="accountTypeHelp" class="form-text"></small><br>
               <label class="mt-2" for="firstName">First name:</label>
               <input type="name" id="firstName" class="form-control my-1" name="firstName" placeholder="Ex: John">
