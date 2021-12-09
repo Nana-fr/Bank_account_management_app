@@ -43,11 +43,17 @@ VALUES (1, 'Current account'),
 CREATE TABLE Accounts (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     account_number INT NOT NULL,
-    account_type_id INT NOT NULL,
-    customer_id INT NOT NULL,
+    account_type_id INT UNSIGNED NOT NULL,
+    customer_id INT UNSIGNED NOT NULL,
     balance DECIMAL NOT NULL,
     created_date Date NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    CONSTRAINT FK_account_type_id
+        FOREIGN KEY (account_type_id)
+        REFERENCES Accounts_type(id),
+    CONSTRAINT FK_customer_id
+        FOREIGN KEY (customer_id)
+        REFERENCES Customers(id)
 )
 ENGINE=INNODB;
 
@@ -63,13 +69,15 @@ CREATE TABLE Transactions (
     transaction_description TEXT NULL,
     amount DECIMAL NOT NULL,
     transaction_type CHAR(1) NOT NULL,
-    account_id INT NOT NULL,
-    customer_id INT NOT NULL,
+    account_id INT UNSIGNED NOT NULL,
     transaction_date DATE NOT NULL,
-    PRIMARY KEY (id) 
+    PRIMARY KEY (id),
+    CONSTRAINT FK_account_id
+        FOREIGN KEY (account_id)
+        REFERENCES Accounts(id)
 )
 ENGINE=INNODB;
 
 INSERT INTO Transactions
-VALUES (1, 96369, 'APPLE', NULL, 1199.99, '-', 3, 2, '2021-05-03'),
-        (2, 14741, 'PiggyBank', 'investment profit', 23.72, '+', 2, 1, '2021-09-11');
+VALUES (1, 96369, 'APPLE', NULL, 1199.99, '-', 3, '2021-05-03'),
+        (2, 14741, 'PiggyBank', 'investment profit', 23.72, '+', 2, '2021-09-11');
