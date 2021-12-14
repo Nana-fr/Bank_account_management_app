@@ -20,6 +20,10 @@
     $lastTransactionsStatement = $connection->prepare($sqlQuery);
     $lastTransactionsStatement->execute();
     $lastTransactions = $lastTransactionsStatement->fetchAll();
+
+    function deleteAccount($i) {
+        $sqlQuery = "DELETE FROM Accounts WHERE Accounts.id='$id'";
+        $deleteStatement->execute();}
 ;?>
 
 <main class="container px-3 font-Zen">
@@ -46,23 +50,35 @@
                     <span class='d-none d-lg-block'>Withdrawal</span></a>
                     </li>
                     <li>
-                    <a href='#' id='0' class='btn btn-transaction rounded' onClick='deleteAccount(this.id)'>
+                    <button href='#' id='0' class='btn btn-transaction rounded' onClick='deleteAccount($i)'>
                     <i class='fas fa-trash-alt'></i>
-                    <span class='d-none d-lg-block'>Delete</span></a>
+                    <span class='d-none d-lg-block'>Delete</span></button>
                     </li>  
                 </ul>
                 </div>
                 <!-- deposit & withdrawal form -->
                 <div class='d-none form m-3'>
-                <form action='' method='' class='text-center pt-3'>
+                <form action='account.php?id=<?php echo $id;?>' method='post' class='text-center pt-3'>
                     <i class='fas fa-coins'></i><label class='mt-2' for='sum'></label>
                     <input type='number' class='form-control my-2' name='sum' placeholder='Ex: 70' min='50'>
                     <small class='form-text help'></small>
+                    <div class='d-flex justify-content-center'>
+                        <input class='btn btn-transaction my-2' type='submit' value='Confirm'>
+                    </div>
                 </form>
-                <div class='d-flex justify-content-center'>
-                    <button class='btn btn-transaction my-2' type='submit' value='Confirm'>Confirm</button>
                 </div>
-                </div>
+
+                <?php
+                if (isset($_POST['sum'])) {
+                    $sum=htmlspecialchars($_POST["sum"]);
+                    $request = "UPDATE Accounts SET balance = balance + $sum WHERE id='$id'";
+                    $depositStatement = $connection->prepare($request);
+                    $depositStatement->execute();
+                    } else {
+                        $errorMessage = 'Error';
+                }
+                ?>
+
         </article>
     </div>
 </main>

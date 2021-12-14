@@ -88,24 +88,18 @@
               <label class="mt-2" for="accountType">Type of account:</label><br>
                     <select id="accountType" name="accountType" class="my-1">
                       <option value="">Choose</option>
-                      <option value="Current account">Current account</option>
-                      <option value="Savings account">Savings account</option>
-                      <option value="ISA">ISA</option>
+                      <option value=1>Current account</option>
+                      <option value=2>Savings account</option>
+                      <option value=3>ISA</option>
                     </select><br>
               <small id="accountTypeHelp" class="form-text"></small><br>
-              <label class="mt-2" for="firstName">First name:</label>
-              <input type="name" id="firstName" class="form-control my-1" name="firstName" placeholder="Ex: John">
-              <small id="firstNameHelp" class="form-text"></small><br>
-              <label class="mt-2" for="lastName">Last name:</label>
-              <input type="name" id="lastName" class="form-control my-1" name="LastName" placeholder="Ex: DOE">
-              <small id="lastNameHelp" class="form-text"></small><br>
               <label class="mt-2" for="deposit">Cash deposit (min 50€):</label>
               <input type="number" id="deposit" class="form-control my-1" name="deposit" placeholder="Ex: 70" min="50">
               <small id="depositHelp" class="form-text"></small><br>
             </div>
           </fieldset>
           <div class="d-flex justify-content-center">
-          <button class="btn btn-transaction my-3" type="submit" value="Confirm" onclick="checkNewAccount()">Confirm</button>
+          <input class="btn btn-transaction my-3" type="submit" value="Confirm">
         </div>
         </form>
       </div>
@@ -113,12 +107,9 @@
       <?php
 
 // Validation du formulaire
-if (isset($_POST['accountType']) && isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['deposit'])) {
+if (isset($_POST['accountType']) && isset($_POST['deposit'])) {
     $accountType=htmlspecialchars($_POST["accountType"]);
-    $firstname=htmlspecialchars($_POST["firstName"]);
-    $lastname=htmlspecialchars($_POST["lastName"]);
     $deposit=htmlspecialchars($_POST["deposit"]);
-
       $request = "INSERT INTO Accounts (account_number, account_type_id, customer_id, balance, created_date) VALUES (123456789, '$accountType', 1, '$deposit', Now())";
       $newAccountStatement = $connection->prepare($request);
       $newAccountStatement->execute();
