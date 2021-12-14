@@ -1,73 +1,13 @@
   <!-- #### Header #### -->
   <?php
+  session_start();
   require "install.php";
-  var_dump($login);
-  var_dump($_POST["login"] . " " . $_POST["password"]);
-
-
-
-  // session_start();
-  // if(isset($_POST['username']) && isset($_POST['password']))
-  // {
-  //     // connexion à la base de données
-  //     $db_username = 'root';
-  //     $db_password = 'mot_de_passe_bdd';
-  //     $db_name     = 'nom_bdd';
-  //     $db_host     = 'localhost';
-  //     $db = mysqli_connect($db_host, $db_username, $db_password,$db_name)
-  //            or die('could not connect to database');
-      
-  //     // on applique les deux fonctions mysqli_real_escape_string et htmlspecialchars
-  //     // pour éliminer toute attaque de type injection SQL et XSS
-  //     $username = mysqli_real_escape_string($db,htmlspecialchars($_POST['username'])); 
-  //     $password = mysqli_real_escape_string($db,htmlspecialchars($_POST['password']));
-      
-  //     if($username !== "" && $password !== "")
-  //     {
-  //         $requete = "SELECT count(*) FROM utilisateur where 
-  //               nom_utilisateur = '".$username."' and mot_de_passe = '".$password."' ";
-  //         $exec_requete = mysqli_query($db,$requete);
-  //         $reponse      = mysqli_fetch_array($exec_requete);
-  //         $count = $reponse['count(*)'];
-  //         if($count!=0) // nom d'utilisateur et mot de passe correctes
-  //         {
-  //            $_SESSION['username'] = $username;
-  //            header('Location: principale.php');
-  //         }
-  //         else
-  //         {
-  //            header('Location: login.php?erreur=1'); // utilisateur ou mot de passe incorrect
-  //         }
-  //     }
-  //     else
-  //     {
-  //        header('Location: login.php?erreur=2'); // utilisateur ou mot de passe vide
-  //     }
-  // }
-  // else
-  // {
-  //    header('Location: login.php');
-  // }
-
-
-
-//   <?php
-//   session_start();
-//   if($_SESSION['username'] !== ""){
-//       $user = $_SESSION['username'];
-//       echo "Bonjour $user, vous êtes connecté";
-//   }
-// ?>
-
-
-
-  if (array_key_exists($_POST['login'], $login) === false || $login[$_POST["login"]] !== $_POST["password"]) {
-   header('Location: login.php');
-  exit; 
-  }
   require "data/accounts.php";
   include "template/header.php";
   include "template/nav.php";
+  if (!isset($_SESSION['firstname']) || !isset($_SESSION['lastname'])) {
+    header('Location: login.php'); 
+  }
   ?>
 
     <!-- #### Layer #### -->
@@ -81,12 +21,59 @@
 
   <!-- #### Homepage #### -->
   <main class="container px-3 font-Zen">
-    
     <h2 class="fw-bold text-center text-decoration-underline py-5">My Banks Accounts<i class="fas fa-piggy-bank color ps-2"></i></h2>
 
     <!-- Display banks account -->
     <div id="newAccount" class="row justify-content-center px-2">
-      <?php get_accounts();?>
+      <?php
+      $firstname = $_SESSION['firstname'];
+      $lastname = strtoupper($_SESSION['lastname']);
+      $sqlQuery = "SELECT Accounts.*, Accounts_type.account_type_name, Customers.firstname, Customers.lastname FROM Accounts INNER JOIN Accounts_type ON account_type_id=Accounts_type.id INNER JOIN Customers ON customer_id=Customers.id WHERE Customers.firstname='$firstname' AND Customers.lastname='$lastname'";
+      $accountsStatement = $connection->prepare($sqlQuery);
+      $accountsStatement->execute();
+      $accounts = $accountsStatement->fetchAll();
+      foreach ($accounts as $account) {
+        $i=$account["id"];
+        echo "<article class='card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0'>
+          <h5 class='card-header bg-Kobi text-white text-center'>" . $account["account_type_name"] . " n°" . $account["account_number"] . "</h5>
+          <div class='card-body px-0 pb-0'>
+          <h5 class='card-title text-center fw-bold mb-3'>Owner: " . $account["firstname"] . " " . $account["lastname"] . "</h5>
+          <p class='card-text'>Balance:  <span class='fw-bold'>" . $account["balance"] . "</span>€</p>
+          <ul class='px-0 pt-4 d-flex justify-content-around btnsBloc'>
+              <li>
+              <a href='account.php?id=$i' class='btn btn-transaction rounded'>See<span class='d-none d-lg-block'>more</span></a>
+              </li>
+              <li>
+              <a href='#' name='' type='deposit' class='btn btn-transaction rounded text-success' onClick='deployedForm(this.name, this.type)'>
+              <i class='fas fa-coins'></i><i class='fas fa-plus fa-xs ps-1'></i>
+              <span class='d-none d-lg-block'>Deposit</span></a>
+              </li>
+              <li>
+              <a href='#' name='' type='withdrawal' class='btn btn-transaction rounded text-danger' onClick='deployedForm(this.name, this.type)'>
+              <i class='fas fa-coins'></i><i class='fas fa-minus fa-xs ps-1'></i>
+              <span class='d-none d-lg-block'>Withdrawal</span></a>
+              </li>
+              <li>
+              <button id='' class='btn btn-transaction rounded' onClick='deleteAccount(this.id)'>
+              <i class='fas fa-trash-alt'></i>
+              <span class='d-none d-lg-block'>Delete</span></button>
+              </li>  
+          </ul>
+          </div>
+          <!-- deposit & withdrawal form -->
+          <div class='d-none form m-3'>
+          <form action='' method='' class='text-center pt-3'>
+              <i class='fas fa-coins'></i><label class='mt-2' for='sum'></label>
+              <input type='number' class='form-control my-2' name='sum' placeholder='Ex: 70' min='50'>
+              <small class='form-text help'></small>
+          </form>
+          <div class='d-flex justify-content-center'>
+              <button class='btn btn-transaction my-2' type='submit' value='Confirm'>Confirm</button>
+          </div>
+          </div>
+      </article>";
+      }
+      ;?>
     </div>
 
     <!-- New account & transfer Form -->
@@ -94,7 +81,7 @@
       
       <!-- New account form-->
       <div id="createAccount" class="d-none form mx-3 mx-lg-5 mb-5 col-11 col-sm-7 col-md-5 col-lg-4 col-xxl-3 p-0">
-        <form action="submit_account_form.php" method="post" class="">
+        <form action="index.php" method="post" class="">
           <fieldset>
             <legend class="bg-Kobi text-white text-center text-decoration-underline py-2">Create a new bank account</legend>
             <div class="px-2">
@@ -122,6 +109,24 @@
         </div>
         </form>
       </div>
+
+      <?php
+
+// Validation du formulaire
+if (isset($_POST['accountType']) && isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['deposit'])) {
+    $accountType=htmlspecialchars($_POST["accountType"]);
+    $firstname=htmlspecialchars($_POST["firstName"]);
+    $lastname=htmlspecialchars($_POST["lastName"]);
+    $deposit=htmlspecialchars($_POST["deposit"]);
+
+      $request = "INSERT INTO Accounts (account_number, account_type_id, customer_id, balance, created_date) VALUES (123456789, '$accountType', 1, '$deposit', Now())";
+      $newAccountStatement = $connection->prepare($request);
+      $newAccountStatement->execute();
+      } else {
+        $errorMessage = 'Error';
+}
+?>
+
 
       <!-- Transfer money form-->
       <div id="transferMoney" class="d-none form mx-3 mx-lg-5 mb-5 col-11 col-sm-7 col-md-5 col-lg-4 col-xxl-3 p-0">

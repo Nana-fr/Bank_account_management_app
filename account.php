@@ -1,49 +1,39 @@
 <?php
+  session_start();
+  require "install.php";
   require "data/accounts.php";
   include "template/header.php";
   include "template/nav.php";
+?>
 
-    if (!empty($_GET) && isset($_GET["id"])) {
+<?php if (!empty($_GET) && isset($_GET["id"])) { 
         $id = htmlspecialchars($_GET["id"]);
     } else {
         $error = "There is nothing here." ;
     }
-
-    $accounts = [
-        [
-          "name" => "Current account",
-          "number" => "N:0132520024 fr 45",
-          "owner" => "Mr DOE John",
-          "amount" => 5000,
-          "last_operation" => "-1000€ --- Football pools"
-        ],
-        [
-          "name" => "Savings account",
-          "number" => "N:0132520024 fr 45",
-          "owner" => "Mr DOE John",
-          "amount" => 30000,
-          "last_operation" => "+500€ --- Deposit"
-        ],
-        [
-          "name" => "ISA",
-          "number" => "N:0132520024 fr 45",
-          "owner" => "Mr DOE John",
-          "amount" => 15000,
-          "last_operation" => "-1500€ --- Withdrawal"
-        ],
-      ];
-?>
+    $sqlQuery = "SELECT * FROM Accounts INNER JOIN Accounts_type ON account_type_id=Accounts_type.id INNER JOIN Customers ON customer_id=Customers.id WHERE Accounts.id='$id'";
+    $accountStatement = $connection->prepare($sqlQuery);
+    $accountStatement->execute();
+    $account = $accountStatement->fetchAll();
+    $account = $account[0];
+    $sqlQuery = "SELECT * FROM Transactions INNER JOIN Accounts ON account_id=Accounts.id WHERE Accounts.id='$id'";
+    $lastTransactionsStatement = $connection->prepare($sqlQuery);
+    $lastTransactionsStatement->execute();
+    $lastTransactions = $lastTransactionsStatement->fetchAll();
+;?>
 
 <main class="container px-3 font-Zen">
-    <h2 class="fw-bold text-center text-decoration-underline py-5">Data about <?php echo $accounts[$id]["name"] . " " . $accounts[$id]["number"];?></h2>
+    <h2 class="fw-bold text-center text-decoration-underline py-5">Data about <?php echo $account["account_type_name"] . " " . $account["account_number"];?></h2>
 
     <div class="row justify-content-center px-2">
         <article class='card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0'>
-                <h5 class='card-header bg-Kobi text-white text-center'><?php echo $accounts[$id]["name"] . " " . $accounts[$id]["number"];?></h5>
+                <h5 class='card-header bg-Kobi text-white text-center'><?php echo $account["account_type_name"] . " " . $account["account_number"];?></h5>
                 <div class='card-body px-0 pb-0'>
-                <h5 class='card-title text-center mb-3'>Owner: <?php echo $accounts[$id]["owner"];?></h5>
-                <p class='card-text'>Balance:  <span class='fw-bold'><?php echo $accounts[$id]["amount"];?></span>€</p>
-                <p class='card-text'>Last transaction:  <span class='lastTransaction text-danger fw-bold'><?php echo $accounts[$id]["last_operation"];?></span></p>
+                <h5 class='card-title text-center mb-3'>Owner: <?php echo $account["firstname"] . " " . $account["lastname"];?></h5>
+                <p class='card-text'>Balance:  <span class='fw-bold'><?php echo $account["balance"];?></span>€</p>
+                <p class='card-text'>Last transaction:  <ul class='lastTransaction text-danger fw-bold'><?php foreach ($lastTransactions as $lastTransaction){
+                  echo "<li>" . $lastTransaction['transaction_type'] . $lastTransaction['amount'] . "€ --- " . $lastTransaction['transaction_name'] . " --- " . $lastTransaction['transaction_date'] . "</li>";
+                };?></ul></p>
                 <ul class='px-0 pt-4 d-flex justify-content-around btnsBloc'>
                     <li>
                     <a href='#' name='0' type='deposit' class='btn btn-transaction rounded text-success' onClick='deployedForm(this.name, this.type)'>
