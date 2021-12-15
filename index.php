@@ -38,38 +38,9 @@
           <h5 class='card-header bg-Kobi text-white text-center'>" . $account["account_type_name"] . " n°" . $account["account_number"] . "</h5>
           <div class='card-body px-0 pb-0'>
           <h5 class='card-title text-center fw-bold mb-3'>Owner: " . $account["firstname"] . " " . $account["lastname"] . "</h5>
-          <p class='card-text'>Balance:  <span class='fw-bold'>" . $account["balance"] . "</span>€</p>
-          <ul class='px-0 pt-4 d-flex justify-content-around btnsBloc'>
-              <li>
-              <a href='account.php?id=$i' class='btn btn-transaction rounded'>See<span class='d-none d-lg-block'>more</span></a>
-              </li>
-              <li>
-              <a href='#' name='' type='deposit' class='btn btn-transaction rounded text-success' onClick='deployedForm(this.name, this.type)'>
-              <i class='fas fa-coins'></i><i class='fas fa-plus fa-xs ps-1'></i>
-              <span class='d-none d-lg-block'>Deposit</span></a>
-              </li>
-              <li>
-              <a href='#' name='' type='withdrawal' class='btn btn-transaction rounded text-danger' onClick='deployedForm(this.name, this.type)'>
-              <i class='fas fa-coins'></i><i class='fas fa-minus fa-xs ps-1'></i>
-              <span class='d-none d-lg-block'>Withdrawal</span></a>
-              </li>
-              <li>
-              <button id='' class='btn btn-transaction rounded' onClick='deleteAccount(this.id)'>
-              <i class='fas fa-trash-alt'></i>
-              <span class='d-none d-lg-block'>Delete</span></button>
-              </li>  
-          </ul>
-          </div>
-          <!-- deposit & withdrawal form -->
-          <div class='d-none form m-3'>
-          <form action='' method='' class='text-center pt-3'>
-              <i class='fas fa-coins'></i><label class='mt-2' for='sum'></label>
-              <input type='number' class='form-control my-2' name='sum' placeholder='Ex: 70' min='50'>
-              <small class='form-text help'></small>
-          </form>
-          <div class='d-flex justify-content-center'>
-              <button class='btn btn-transaction my-2' type='submit' value='Confirm'>Confirm</button>
-          </div>
+          <div class='d-flex justify-content-around my-3'>
+            <p class='card-text'>Balance:  <span class='fw-bold'>" . $account["balance"] . "</span>€</p>
+            <a href='account.php?id=$i' class='btn btn-transaction rounded'>See more</a>
           </div>
       </article>";
       }
@@ -108,16 +79,24 @@
 
 // Validation du formulaire
 if (isset($_POST['accountType']) && isset($_POST['deposit'])) {
-    $accountType=htmlspecialchars($_POST["accountType"]);
-    $deposit=htmlspecialchars($_POST["deposit"]);
-      $request = "INSERT INTO Accounts (account_number, account_type_id, customer_id, balance, created_date) VALUES (123456789, '$accountType', 1, '$deposit', Now())";
-      $newAccountStatement = $connection->prepare($request);
-      $newAccountStatement->execute();
-      } else {
-        $errorMessage = 'Error';
+  $accountType=htmlspecialchars($_POST["accountType"]);
+  $deposit=htmlspecialchars($_POST["deposit"]);
+  $request = "INSERT INTO Accounts (account_number, account_type_id, customer_id, balance, created_date) VALUES (123456789, '$accountType', 1, '$deposit', Now())";
+  $newAccountStatement = $connection->prepare($request);
+  $newAccountStatement->execute();
+
+  $sqlQuery = "SELECT id FROM Accounts WHERE id=(SELECT MAX(id) FROM Accounts)";
+  $accountStatement = $connection->prepare($sqlQuery);
+  $accountStatement->execute();
+  $account_id= $accountStatement->fetch();
+
+  $sqlQuery = "INSERT INTO Transactions (transaction_number, transaction_name, amount, transaction_type, account_id, transaction_date) VALUES (85214, 'Deposit for new account', '$deposit', '+', '$account_id[0]', Now())";
+  $addTransactionStatement = $connection->prepare($sqlQuery);
+  $addTransactionStatement->execute();
+  } else {
+  $errorMessage = 'Error';
 }
 ?>
-
 
       <!-- Transfer money form-->
       <div id="transferMoney" class="d-none form mx-3 mx-lg-5 mb-5 col-11 col-sm-7 col-md-5 col-lg-4 col-xxl-3 p-0">

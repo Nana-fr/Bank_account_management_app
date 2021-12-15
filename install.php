@@ -1,7 +1,8 @@
 <?php
 try
 {
-    $connection = new PDO('mysql:host=localhost;dbname=banque_php', 'root', '');
+    $connection = new PDO('mysql:host=localhost;dbname=banque_php', 'root', '',
+    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION],);
 } catch(Exception $e)
 {
     die('Erreur : '.$e->getMessage());
@@ -13,7 +14,7 @@ $customersStatement->execute();
 $customers = $customersStatement->fetchAll();
 $login = [];
 foreach ($customers as $customer) {
-  $login += [$customer['email']=> $customer['password_customer']];
+  $login += [$customer['email'] => $customer['password_customer']];
 }
 return $login;
 ?>

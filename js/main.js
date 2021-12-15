@@ -28,10 +28,10 @@ function closeLayer() {
 }
 
 // ### DELETE ACCOUNT ###
-function deleteAccount(clicked_id) {
-    let n= clicked_id;
-    articles[n].classList.add("d-none");
-}
+// function deleteAccount(clicked_id) {
+//     let n= clicked_id;
+//     articles[n].classList.add("d-none");
+// }
 
 // function Validate Input for all forms
 function validateInput(validation, element, smallHelp, helpText) {
@@ -50,51 +50,54 @@ function validateInput(validation, element, smallHelp, helpText) {
 // ### DEPOSIT & WITHDRAWAL ###
 
 // Display form & hide buttons
-function deployedForm(clicked_name, clicked_type) {
-    let a = clicked_name;
-    let x = clicked_type;
-    btnsBloc[a].classList.add("d-none");
-    let form = articles[a].querySelector(".form")
+function deployedForm(clicked_name) {
+    let x = clicked_name;
+    console.log(x);
+    btnsBloc[0].classList.add("d-none");
+    let article = document.querySelector("article");
+    let form = article.querySelector(".form")
     form.classList.remove("d-none");
     // Determine deposit or withdrawal form
     if (x==="deposit") {
         form.querySelector("label").innerText = "+ Cash deposit (min 50€):";
+        form.querySelector("input").name = "Deposit";
     } else {
         form.querySelector("label").innerText = "- Cash withdrawal (min 50€):";
+        form.querySelector("input").name = "Withdrawal";
     }
     // Check input and calculate new balance
-    let result = 0;
-    let help = form.querySelector(".help");
-    checkInput();
-    function checkInput() {
-        form.querySelector("button").addEventListener("click", function() {
-            // check sum input
-            let sum = form.querySelector("input");
-            let validation = sum.value.match(sumRegex) && sum.value > 49;
-            validateInput(validation, sum, help, "The minimal amount of money should be 50€");
-            // Calculate new balance
-            if (validation) {
-                let balance = articles[a].querySelector("span");
-                let lastTransaction = articles[a].querySelector(".lastTransaction");
-                if (x==="deposit") {
-                    result = parseInt(balance.innerText) + parseInt(sum.value);
-                    lastTransaction.classList.add("text-success");
-                    lastTransaction.classList.remove("text-danger");
-                    lastTransaction.innerHTML = `+${sum.value}€ --- Deposit`;
-                } else {
-                    result = parseInt(balance.innerText) - parseInt(sum.value);
-                    lastTransaction.classList.add("text-danger");
-                    lastTransaction.classList.remove("text-success");
-                    lastTransaction.innerHTML = `-${sum.value}€ --- Withdrawal`;
-                }
-                form.classList.add("d-none");
-                btnsBloc[a].classList.remove("d-none");
-                return balance.innerText = result; 
-            } else {
-                checkInput();
-            }
-        }, {once: true}); // To clear eventlistener memory
-    }
+    // let result = 0;
+    // let help = form.querySelector(".help");
+    // checkInput();
+    // function checkInput() {
+    //     form.querySelector("button").addEventListener("click", function() {
+    //         // check sum input
+    //         let sum = form.querySelector("input");
+    //         let validation = sum.value.match(sumRegex) && sum.value > 49;
+    //         validateInput(validation, sum, help, "The minimal amount of money should be 50€");
+    //         // Calculate new balance
+    //         if (validation) {
+    //             let balance = articles[a].querySelector("span");
+    //             let lastTransaction = articles[a].querySelector(".lastTransaction");
+    //             if (x==="deposit") {
+    //                 result = parseInt(balance.innerText) + parseInt(sum.value);
+    //                 lastTransaction.classList.add("text-success");
+    //                 lastTransaction.classList.remove("text-danger");
+    //                 lastTransaction.innerHTML = `+${sum.value}€ --- Deposit`;
+    //             } else {
+    //                 result = parseInt(balance.innerText) - parseInt(sum.value);
+    //                 lastTransaction.classList.add("text-danger");
+    //                 lastTransaction.classList.remove("text-success");
+    //                 lastTransaction.innerHTML = `-${sum.value}€ --- Withdrawal`;
+    //             }
+    //             form.classList.add("d-none");
+    //             btnsBloc[a].classList.remove("d-none");
+    //             return balance.innerText = result; 
+    //         } else {
+    //             checkInput();
+    //         }
+    //     }, {once: true}); // To clear eventlistener memory
+    // }
 }
 
 
@@ -107,47 +110,47 @@ function addForm(clicked_name) {
 }
 
 // ### Create new account ###
-function createAccount() {
-    let newAccount = document.getElementById("newAccount");
-    document.getElementsByName("createAccount")[0].classList.remove("d-none");
-    document.getElementById("createAccount").classList.add("d-none")
-    newAccount.innerHTML += `<article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
-                                <h5 class="card-header bg-Kobi text-white text-center">${accountType.value} n°$$$</h5>
-                                <div class="card-body px-0 pb-0">
-                                    <h5 class="card-title text-center fw-bold mb-3">Owner: ${firstName.value.toLowerCase()[0].toUpperCase()}${firstName.value.toLowerCase().slice(1)} ${lastName.value.toUpperCase()}</h5>
-                                    <p class="card-text">Balance: <span class="fw-bold">${deposit.value}</span>€</p>
-                                    <p class="card-text">Last transaction: <span class="lastTransaction text-success fw-bold">+${deposit.value}€ --- Deposit new account</span></p>
-                                    <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
-                                        <li>
-                                            <a href="account.php?id=${articles.length}" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" name="${articles.length}" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)">
-                                            <i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i>
-                                            <span class="d-none d-lg-block">Deposit</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" name="${articles.length}" type="withdrawal" class="btn btn-transaction rounded text-danger m-1" onClick="deployedForm(this.name, this.type)">
-                                            <i class="fas fa-coins"></i><i class="fas fa-minus fa-xs ps-1"></i>
-                                            <span class="d-none d-lg-block">Withdrawal</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#" id="${articles.length}" class="btn btn-transaction rounded m-1" onClick="deleteAccount(this.id)">
-                                            <i class="fas fa-trash-alt"></i><span class="d-none d-lg-block">Delete</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="d-none form m-3">
-                                    <form action="" method="" class="text-center pt-3">
-                                        <i class="fas fa-coins"></i><label class="mt-2" for="sum"></label>
-                                        <input type="number" class="form-control my-2" name="sum" placeholder="Ex: 70" min="50">
-                                        <small class="form-text help"></small>
-                                    </form>
-                                    <div class="d-flex justify-content-center">
-                                        <button class="btn btn-transaction my-2" type="submit" value="Confirm">Confirm</button>
-                                    </div>
-                                </div></article>`;
-}
+// function createAccount() {
+//     let newAccount = document.getElementById("newAccount");
+//     document.getElementsByName("createAccount")[0].classList.remove("d-none");
+//     document.getElementById("createAccount").classList.add("d-none")
+//     newAccount.innerHTML += `<article class="card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0">
+//                                 <h5 class="card-header bg-Kobi text-white text-center">${accountType.value} n°$$$</h5>
+//                                 <div class="card-body px-0 pb-0">
+//                                     <h5 class="card-title text-center fw-bold mb-3">Owner: ${firstName.value.toLowerCase()[0].toUpperCase()}${firstName.value.toLowerCase().slice(1)} ${lastName.value.toUpperCase()}</h5>
+//                                     <p class="card-text">Balance: <span class="fw-bold">${deposit.value}</span>€</p>
+//                                     <p class="card-text">Last transaction: <span class="lastTransaction text-success fw-bold">+${deposit.value}€ --- Deposit new account</span></p>
+//                                     <ul class="px-0 pt-4 d-flex justify-content-around btnsBloc">
+//                                         <li>
+//                                             <a href="account.php?id=${articles.length}" class="btn btn-transaction rounded m-1">See<span class="d-none d-lg-block">more</span></a>
+//                                         </li>
+//                                         <li>
+//                                             <a href="#" name="${articles.length}" type="deposit" class="btn btn-transaction rounded text-success m-1" onClick="deployedForm(this.name, this.type)">
+//                                             <i class="fas fa-coins"></i><i class="fas fa-plus fa-xs ps-1"></i>
+//                                             <span class="d-none d-lg-block">Deposit</span></a>
+//                                         </li>
+//                                         <li>
+//                                             <a href="#" name="${articles.length}" type="withdrawal" class="btn btn-transaction rounded text-danger m-1" onClick="deployedForm(this.name, this.type)">
+//                                             <i class="fas fa-coins"></i><i class="fas fa-minus fa-xs ps-1"></i>
+//                                             <span class="d-none d-lg-block">Withdrawal</span></a>
+//                                         </li>
+//                                         <li>
+//                                             <a href="#" id="${articles.length}" class="btn btn-transaction rounded m-1" onClick="deleteAccount(this.id)">
+//                                             <i class="fas fa-trash-alt"></i><span class="d-none d-lg-block">Delete</span></a>
+//                                         </li>
+//                                     </ul>
+//                                 </div>
+//                                 <div class="d-none form m-3">
+//                                     <form action="" method="" class="text-center pt-3">
+//                                         <i class="fas fa-coins"></i><label class="mt-2" for="sum"></label>
+//                                         <input type="number" class="form-control my-2" name="sum" placeholder="Ex: 70" min="50">
+//                                         <small class="form-text help"></small>
+//                                     </form>
+//                                     <div class="d-flex justify-content-center">
+//                                         <button class="btn btn-transaction my-2" type="submit" value="Confirm">Confirm</button>
+//                                     </div>
+//                                 </div></article>`;
+// }
 
 // Check new account form input
 function checkNewAccount() {
