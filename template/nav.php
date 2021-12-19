@@ -1,6 +1,3 @@
-<?php
-  !isset($_SESSION['firstname']) || !isset($_SESSION['lastname'])? $log = 'login' : $log = 'logout';
-?>
 <nav class="navbar navbar-expand-lg navbar-light bg-Kobi font-sixCaps fs-1 mb-2">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.php"><i class="fas fa-piggy-bank fa-lg color pe-1"></i><span class="color fs-4">Piggy Bank</span></a>
@@ -18,16 +15,21 @@
           <li class="nav-item">
             <a class="nav-link" href="blog.php"><i class="far fa-newspaper color fa-xs pe-2"></i>Blog</a>
           </li>
+          <?php if(!isset($_SESSION['firstname']) && !isset($_SESSION['lastname'])): ?>
           <li class="nav-item">
-            <a href="<?php echo $log;?>.php" class="nav-link"><?php echo $log;?></a>
+            <a href="login.php" class="nav-link">login</a>
           </li>
-          <li>
-            <?php if($log === 'login') {
-              echo "";
-            } else {
-              echo $_SESSION['firstname'] . " " . $_SESSION['lastname'] ;
-            } ;?>
-          </li>
+          <?php else :?>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-user-circle color pe-2"></i><?php echo $_SESSION['firstname'] . " " . $_SESSION['lastname'];?>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item font-Zen color" href="user.php">See profile</a></li>
+            <li><a class="dropdown-item font-Zen color" href="logout.php">Log out</a></li>
+          </ul>
+        </li>
+        <?php endif; ?>
         </ul>
       </div>
     </div>

@@ -11,13 +11,12 @@ CREATE TABLE Customers (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     firstname VARCHAR(30) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
-    login_customer VARCHAR(30),
     password_customer VARCHAR(20),
     street VARCHAR(50) NOT NULL,
     postcode INT NOT NULL,
     city VARCHAR(50) NOT NULL,
     country VARCHAR(20) NOT NULL,
-    phone_number INT NOT NULL,
+    phone_number VARCHAR(14) NOT NULL,
     email VARCHAR(50),
     subscript_date DATE NOT NULL,
     PRIMARY KEY (id)
@@ -25,8 +24,8 @@ CREATE TABLE Customers (
 ENGINE=INNODB;
 
 INSERT INTO Customers
-VALUES (1, 'John', 'DOE', 'piggy', 'cochon', '20 rue de la paix', 75000, 'Paris', 'FRANCE', 0626262626, 'littlepig@gmail.com', '2021-01-08'),
-        (2, 'Jane', 'DOE', 'bankrupt', 'spider', '20 rue de la guerre', 76300, 'Sotteville-lès-Rouen', 'FRANCE', 0606060606, 'gobankrupt@gmail.com', '2021-03-08');
+VALUES (1, 'John', 'DOE', 'cochon', '20 rue de la paix', 75000, 'Paris', 'FRANCE', '06-26-26-26-26', 'littlepig@gmail.com', '2021-01-08'),
+        (2, 'Jane', 'DOE', 'spider', '20 rue de la guerre', 76300, 'Sotteville-lès-Rouen', 'FRANCE', '06-06-06-06-06', 'gobankrupt@gmail.com', '2021-03-08');
 
 CREATE TABLE Accounts_type (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -67,12 +66,12 @@ VALUES (1, 123456789, 1, 1, 5000.00, '2021-01-08'),
 CREATE TABLE Transactions (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     transaction_number INT NOT NULL,
-    transaction_name VARCHAR(30) NOT NULL,
+    transaction_name VARCHAR(200) NOT NULL,
     transaction_description TEXT NULL,
     amount DECIMAL NOT NULL,
     transaction_type CHAR(1) NOT NULL,
     account_id INT UNSIGNED NOT NULL,
-    transaction_date DATE NOT NULL,
+    transaction_date DATETIME NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT FK_account_id
         FOREIGN KEY (account_id)
@@ -81,9 +80,9 @@ CREATE TABLE Transactions (
 ENGINE=INNODB;
 
 INSERT INTO Transactions
-VALUES (1, 96369, 'APPLE', NULL, 1199.99, '-', 1, '2021-05-03'),
-        (2, 14741, 'PiggyBank', 'investment profit', 23.72, '+', 2, '2021-09-11'),
-        (3, 85214, 'Withdrawal', NULL, 1500.00, '-', 1, '2021-09-15'),
-        (4, 36985, 'Deposit', NULL, 500.00, '+', 3, '2021-09-16'),
-        (5, 74125, 'Football pools', NULL, 1000.00, '-', 4, '2021-03-15'),
-        (6, 98745, 'Deposit', NULL, 400.00, '+', 5, '2021-05-06');
+VALUES (1, 96369, 'APPLE', NULL, 1199.99, '-', 1, '2021-05-03 17:34:22'),
+        (2, 14741, 'PiggyBank', 'investment profit', 23.72, '+', 2, '2021-09-11 09:23:51'),
+        (3, 85214, 'Withdrawal', NULL, 1500.00, '-', 1, '2021-09-15 10:54:41'),
+        (4, 36985, 'Deposit', NULL, 500.00, '+', 3, '2021-09-16 12:14:03'),
+        (5, 74125, 'Football pools', NULL, 1000.00, '-', 4, '2021-03-15 15:54:12'),
+        (6, 98745, 'Deposit', NULL, 400.00, '+', 5, '2021-05-06 16:24:36');
