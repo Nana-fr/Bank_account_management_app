@@ -1,7 +1,8 @@
 <?php
  session_start();
+ session_unset();
  session_destroy();
-  require "install.php";
+  require "Model/install.php";
   include "template/header.php";
   include "template/nav.php";
   ?>

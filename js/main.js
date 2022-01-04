@@ -7,25 +7,25 @@ let articles = document.getElementsByTagName("article");
 let btnsBloc = document.getElementsByClassName("btnsBloc");
 
 // ### LAYER ###
-displayLayer();
-function displayLayer() {
-    let httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = function() {
-        if (httpRequest.readyState === XMLHttpRequest.DONE) {
-            if (httpRequest.status === 200) {
-                let p = document.getElementById("message");
-                p.innerHTML = httpRequest.responseText;
-            }
-        }
-    };
-    httpRequest.open('GET', 'data/security_rules.txt');
-    httpRequest.send();
-};
+// displayLayer();
+// function displayLayer() {
+//     let httpRequest = new XMLHttpRequest();
+//     httpRequest.onreadystatechange = function() {
+//         if (httpRequest.readyState === XMLHttpRequest.DONE) {
+//             if (httpRequest.status === 200) {
+//                 let p = document.getElementById("message");
+//                 p.innerHTML = httpRequest.responseText;
+//             }
+//         }
+//     };
+//     httpRequest.open('GET', 'data/security_rules.txt');
+//     httpRequest.send();
+// };
 
 // Close warning window
-function closeLayer() {
-    document.getElementById("warning").classList.add("d-none");
-}
+// function closeLayer() {
+//     document.getElementById("warning").classList.add("d-none");
+// }
 
 // ### DELETE ACCOUNT ###
 // function deleteAccount(clicked_id) {

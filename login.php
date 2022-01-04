@@ -1,39 +1,10 @@
 <?php
   session_start();
-  require "install.php";
+  require "Model/install.php";
   include "template/header.php";
   include "template/nav.php";
+  require "Model/login.php";
   ?>
-
-<?php
-$sqlQuery = 'SELECT * FROM Customers';
-$customersStatement = $connection->prepare($sqlQuery);
-$customersStatement->execute();
-$customers = $customersStatement->fetchAll();
-$login = [];
-foreach ($customers as $customer) {
-  $login += [$customer['email'] => $customer['password_customer']];
-};
-
-// CHECK FORM
-if (isset($_POST['login']) && isset($_POST['password'])) {
-    $mail=htmlspecialchars($_POST["login"]);
-    $password=htmlspecialchars($_POST["password"]);
-
-      $request = "SELECT id, firstname, lastname FROM Customers WHERE email = '$mail' AND password_customer = '$password'";
-      $usernameStatement = $connection->prepare($request);
-      $usernameStatement->execute();
-      $username = $usernameStatement->fetch(PDO::FETCH_ASSOC);
-      if ($username) {
-        $_SESSION['firstname'] = $username['firstname'];
-        $_SESSION['lastname'] = $username['lastname'];
-        $_SESSION['id'] = $username['id'];
-        header('Location: index.php');
-      } else {
-        $errorMessage = 'Login and/or password incorrect.';
-      }
-}
-?>
   
 <main class="container text-center px-3 font-Zen">
   <h2 class="fw-bold text-decoration-underline py-5">Please enter your email and password to log in:</h2>

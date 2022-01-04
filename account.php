@@ -1,6 +1,6 @@
 <?php
   session_start();
-  require "install.php";
+  require "Model/install.php";
   require "data/accounts.php";
   include "template/header.php";
   include "template/nav.php";
@@ -11,17 +11,10 @@
     } else {
         $error = "There is nothing here." ;
     }
-    $sqlQuery = "SELECT * FROM Accounts INNER JOIN Accounts_type ON account_type_id=Accounts_type.id INNER JOIN Customers ON customer_id=Customers.id WHERE Accounts.id='$id'";
-    $accountStatement = $connection->prepare($sqlQuery);
-    $accountStatement->execute();
-    $account = $accountStatement->fetchAll();
-    $account = $account[0];
-    $sqlQuery = "SELECT * FROM Transactions INNER JOIN Accounts ON account_id=Accounts.id WHERE Accounts.id='$id' ORDER BY transaction_date DESC";
-    $transactionsStatement = $connection->prepare($sqlQuery);
-    $transactionsStatement->execute();
-    $transactions = $transactionsStatement->fetchAll();
+   require "Model/getAccount.php";
+   require "Model/deposit.php";
 ;?>
-
+     
 <main class="container px-3 font-Zen">
     <h2 class="fw-bold text-center text-decoration-underline py-5">Data about <?php echo $account["account_type_name"] . " n°" . $account["account_number"];?></h2>
 
@@ -73,27 +66,7 @@
                 </form>
                 </div>
 
-                <?php
-                if (isset($_POST['Deposit'])) {
-                    $deposit_sum=htmlspecialchars($_POST["Deposit"]);
-                    $request = "UPDATE Accounts SET balance = balance + $deposit_sum WHERE id='$id'";
-                    $depositStatement = $connection->prepare($request);
-                    $depositStatement->execute();
-                    $sqlQuery = "INSERT INTO Transactions (transaction_number, transaction_name, amount, transaction_type, account_id, transaction_date) VALUES (32569, 'Deposit', '$deposit_sum', '+', '$id', Now())";
-                    $addTransactionStatement = $connection->prepare($sqlQuery);
-                    $addTransactionStatement->execute();
-                } else if (isset($_POST['Withdrawal'])) {
-                    $withdrawal_sum=htmlspecialchars($_POST["Withdrawal"]);
-                    $request = "UPDATE Accounts SET balance = balance - $withdrawal_sum WHERE id='$id'";
-                    $depositStatement = $connection->prepare($request);
-                    $depositStatement->execute();
-                    $sqlQuery = "INSERT INTO Transactions (transaction_number, transaction_name, amount, transaction_type, account_id, transaction_date) VALUES (32569, 'Withdrawal', '$withdrawal_sum', '-', '$id', Now())";
-                    $addTransactionStatement = $connection->prepare($sqlQuery);
-                    $addTransactionStatement->execute();
-                } else {
-                    $errorMessage = 'Error';
-                }
-                ?>
+           
         </article>
     </div>
 </main>
