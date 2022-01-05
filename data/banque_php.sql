@@ -6,7 +6,6 @@ COLLATE utf8_general_ci;
 DROP USER IF EXISTS 'banquePHP'@'localhost';
 CREATE USER 'banquePHP'@'localhost' IDENTIFIED BY 'banque76';
 GRANT ALL PRIVILEGES ON banque_php.* TO 'banquePHP'@'localhost';
-USE banque_php;
 
 CREATE TABLE Customers (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,

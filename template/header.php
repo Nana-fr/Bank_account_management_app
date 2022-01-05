@@ -14,8 +14,8 @@
   
   
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/main.css">
 
   <meta name="theme-color" content="#fafafa">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,7 @@
 <header class="d-none d-sm-block py-3">
     <div class="d-flex align-items-center">
       <figure class="figure d-none d-lg-block ps-3">
-      <img class="img-fluid" src="img/piggy_bank.png" alt="piggy bank logo"/>
+      <img class="img-fluid" src="../img/piggy_bank.png" alt="piggy bank logo"/>
       </figure>
       <section class="container text-white ps-5">
         <h1 class="font-sixCaps">Piggy Bank</h1>
