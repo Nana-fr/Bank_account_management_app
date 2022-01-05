@@ -4,9 +4,9 @@
 <?php if(!isset($_SESSION['firstname']) || !isset($_SESSION['lastname'])): ?>
 <form method="post" action="../Controller/login.php">
     <label for="login">Login:</label>
-    <input type="text" name="login">
+    <input type="text" name="email">
     <label  class="ms-3" for="password" >Password:</label>
-    <input type="password" name="password"><br>
+    <input type="password" name="password_customer"><br>
     <input type="submit" class="btn btn-transaction my-5" value="Submit">
     <?php if(isset($errorMessage)) : ?>
         <div class="alert alert-danger" role="alert">

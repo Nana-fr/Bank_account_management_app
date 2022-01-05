@@ -1,14 +1,20 @@
 <?php
   session_start();
-  require "../Model/install.php";
+  require "../Model/entity/customer.php";
+  require "../Model/login.php";
   include "../template/header.php";
   include "../template/nav.php";
-  require "../Model/login.php";
-  if (isset($_POST['login']) && isset($_POST['password'])) {
-    $mail=htmlspecialchars($_POST["login"]);
-    $password=htmlspecialchars($_POST["password"]);
-    $username=login($connection, $mail, $password);
+  
+  if (isset($_POST['email']) && isset($_POST['password_customer'])) {
+    try {
+      $logCustomer = new Customer($_POST);
+      $login = new Login();
+      $username = $login->login($logCustomer);
+    } catch (Exception $e) {
+      $error = $e->getMessage();
+    }
     if ($username) {
+      var_dump($username);
       $_SESSION['firstname'] = $username['firstname'];
       $_SESSION['lastname'] = $username['lastname'];
       $_SESSION['id'] = $username['id'];

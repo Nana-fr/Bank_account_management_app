@@ -14,7 +14,7 @@ class Customer {
     protected string $email;
     protected string $subscript_date;
     
-    public function __contructor(array $data=null) {
+    public function __construct(array $data=null) {
         if ($data) {
             $this->hydrate($data);
         }
@@ -28,14 +28,14 @@ class Customer {
         }
     }
 
-
+    public function setId($id) {
+            $this->id = $id;
+            return $this;
+        }
     public function getId() {
         return $this->id;
     }
-    public function setId($id) {
-        $this->id = $id;
-        return $this;
-    }
+   
 
     public function getFirstname() {
         return $this->firstname;
@@ -101,13 +101,14 @@ class Customer {
         return $this;
     }
 
-    public function getEmail() {
-        return $this->email;
-    }
-    public function setEmail($email) {
+    public function setEmail(string $email):Customer {
         $this->email = $email;
         return $this;
     }
+    public function getEmail():string {
+        return $this->email;
+    }
+    
 
     public function getSubscript_date() {
         return $this->subscript_date;

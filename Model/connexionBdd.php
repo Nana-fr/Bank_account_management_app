@@ -1,12 +1,12 @@
 <?php
-require "install.php";
+require_once "install.php";
 
 abstract class ConnexionBdd {
     
-    protected PDO $_db;
+    protected PDO $db;
 
     function __construct() {
-    $this->_db = DataBase::getDB();
+    $this->db = DataBase::getDB();
   }
 }
 
