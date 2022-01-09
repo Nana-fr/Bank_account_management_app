@@ -1,6 +1,6 @@
 // ##### Statistics page #####
 
-fetch('data/statistics.json')
+fetch('../data/statistics.json')
 .then(function(data) {
     if(data.ok) {
         data.json().then(function(data){

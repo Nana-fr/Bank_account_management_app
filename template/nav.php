@@ -10,19 +10,19 @@
             <a class="nav-link" aria-current="page" href="../index.php"><i class="fas fa-university color fa-xs pe-2"></i>Homepage</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="statistics.php"><i class="fas fa-chart-line color fa-xs pe-2"></i>Statistics</a>
+            <a class="nav-link" href="../Controller/statistics.php"><i class="fas fa-chart-line color fa-xs pe-2"></i>Statistics</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="blog.php"><i class="far fa-newspaper color fa-xs pe-2"></i>Blog</a>
+            <a class="nav-link" href="../Controller/blog.php"><i class="far fa-newspaper color fa-xs pe-2"></i>Blog</a>
           </li>
-          <?php if(!isset($_SESSION['firstname']) && !isset($_SESSION['lastname'])): ?>
+          <?php if(!isset($_SESSION['user'])): ?>
           <li class="nav-item">
             <a href="../Controller/login.php" class="nav-link">login</a>
           </li>
           <?php else :?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fas fa-user-circle color pe-2"></i><?php echo $_SESSION['firstname'] . " " . $_SESSION['lastname'];?>
+          <i class="fas fa-user-circle color pe-2"></i><?php echo $_SESSION['user']->getFirstname() . " " . $_SESSION['user']->getLastname();?>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item font-Zen color" href="../Controller/user.php">See profile</a></li>

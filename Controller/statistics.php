@@ -2,12 +2,12 @@
 require "../Model/entity/user.php";
 require "../Model/entity/customer.php";
 require "../Model/entity/adviser.php";
- session_start();
- session_unset();
- session_destroy();
-  
+require "../Model/login.php";
+session_start();
 include "../template/header.php";
 include "../template/nav.php";
-require "../View/logoutView.php";
+require "../View/statisticsView.php";
 include "../template/footer.php";
 ?>
+
+<script src="../js/statistics_page.js"></script>

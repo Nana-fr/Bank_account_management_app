@@ -50,20 +50,20 @@ function validateInput(validation, element, smallHelp, helpText) {
 // ### DEPOSIT & WITHDRAWAL ###
 
 // Display form & hide buttons
-function deployedForm(clicked_name) {
-    let x = clicked_name;
+function deployedForm(clicked_id) {
+    let x = clicked_id;
     console.log(x);
     btnsBloc[0].classList.add("d-none");
     let article = document.querySelector("article");
     let form = article.querySelector(".form")
     form.classList.remove("d-none");
     // Determine deposit or withdrawal form
-    if (x==="deposit") {
+    if (x==="Deposit") {
         form.querySelector("label").innerText = "+ Cash deposit (min 50€):";
-        form.querySelector("input").name = "Deposit";
+        document.getElementById("transaction_name").value = "Deposit";
     } else {
         form.querySelector("label").innerText = "- Cash withdrawal (min 50€):";
-        form.querySelector("input").name = "Withdrawal";
+        document.getElementById("transaction_name").value = "Withdrawal";
     }
     // Check input and calculate new balance
     // let result = 0;

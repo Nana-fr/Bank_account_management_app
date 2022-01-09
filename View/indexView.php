@@ -5,15 +5,19 @@
     <!-- Display banks account -->
     <div id="newAccount" class="row justify-content-center px-2">
       <?php
-      foreach ($accounts as $account) {
-        $i=$account["id"];
-        $lastTransaction = get_last_transaction($connection, $i);
+      foreach ($accounts as list ($account, $accountType, $transaction)) {
+        $i=$account->getId();
+        // 
+        // $lastTransaction = get_last_transaction($connection, $i);
           echo "<article class='card col-11 col-sm-7 col-md-5 col-xl-4 mx-3 mx-lg-4 mx-xl-5 mb-5 mt-lg-5 p-0'>
-            <h5 class='card-header bg-Kobi text-white text-center'>" . $account["account_type_name"] . " n°" . $account["account_number"] . "</h5>
+            <h5 class='card-header bg-Kobi text-white text-center'>" . $accountType->getAccount_type_name() . " n°" . $account->getAccount_number() . "</h5>
             <div class='card-body d-flex flex-column px-0 pb-0'>
-              <h5 class='card-title text-center fw-bold mb-3'>Owner: " . $account["firstname"] . " " . $account["lastname"] . "</h5>
-              <p class='card-text'>Balance:  <span class='fw-bold fs-5'>" . $account["balance"] . "</span>€</p>
-              <p class='card-text my-2'>Last transaction:  <span class='lastTransaction text-success fw-bold'>" . $lastTransaction['transaction_type'] . $lastTransaction['amount'] . "€ --- " . $lastTransaction['transaction_name'] . " --- " . $lastTransaction['transaction_date'] . "</span></p>
+              <h5 class='card-title text-center fw-bold mb-3'>Owner: " . $_SESSION["user"]->getFirstname() . " " . $_SESSION["user"]->getLastname() . "</h5>
+              <p class='card-text'>Balance:  <span class='fw-bold fs-5'>" . $account->getBalance() . "</span>€</p>
+              
+           <p class='card-text my-2'>Last transaction:  <span class='lastTransaction text-success fw-bold'>" . $transaction->getTransaction_type() . $transaction->getAmount() . "€ --- " . $transaction->getTransaction_name() . " --- " . $transaction->getTransaction_date() . "</span></p>
+
+              
               <a href='../Controller/account.php?id=$i' class='btn btn-transaction rounded align-self-center my-2'>See more</a>
             </div>
         </article>";
@@ -26,12 +30,12 @@
       
       <!-- New account form-->
       <div id="createAccount" class="d-none form mx-3 mx-lg-5 mb-5 col-11 col-sm-7 col-md-5 col-lg-4 col-xxl-3 p-0">
-        <form action="Controller/operation.php" method="post" class="">
+        <form action="Controller/operation.php" method="post">
           <fieldset>
             <legend class="bg-Kobi text-white text-center text-decoration-underline py-2">Create a new bank account</legend>
             <div class="px-2">
-              <label class="mt-2" for="accountType">Type of account:</label><br>
-                    <select id="accountType" name="accountType" class="my-1">
+              <label class="mt-2" for="account_type_id">Type of account:</label><br>
+                    <select id="account_type_id" name="account_type_id" class="my-1">
                       <option value="">Choose</option>
                       <option value=1>Current account</option>
                       <option value=2>Savings account</option>
@@ -39,47 +43,47 @@
                     </select><br>
               <small id="accountTypeHelp" class="form-text"></small><br>
               <label class="mt-2" for="deposit">Cash deposit (min 50€):</label>
-              <input type="number" id="deposit" class="form-control my-1" name="deposit" placeholder="Ex: 70" min="50">
+              <input type="number" id="deposit" class="form-control my-1" name="balance" placeholder="Ex: 70" min="50">
               <small id="depositHelp" class="form-text"></small><br>
             </div>
           </fieldset>
           <div class="d-flex justify-content-center">
-          <input class="btn btn-transaction my-3" type="submit" value="Confirm">
+          <input class="btn btn-transaction my-3" type="submit" name="add_account" value="Confirm">
         </div>
         </form>
       </div>
 
       <!-- Transfer money form-->
       <div id="transferMoney" class="d-none form mx-3 mx-lg-5 mb-5 col-11 col-sm-7 col-md-5 col-lg-4 col-xxl-3 p-0">
-        <form action="Controller/operation.php" method="post" class="">
+        <form action="Controller/operation.php" method="post">
           <fieldset>
             <legend class="bg-Kobi text-white text-center text-decoration-underline py-2">Transfer money to another account</legend>
             <div class="px-2">
               <label class="mt-2" for="accountDebit">Account to debit:</label><br>
                     <select id="accountDebit" name="accountDebit" class="my-1">
                     <option value="">Select</option>
-                    <?php foreach ($accounts as $account): ?>
-                      <?php $infoAccount=serialize(array($account['id'], $account["account_type_name"] . " n°" . $account["account_number"]));?>
-                    <option value='<?php echo $infoAccount;?>'><?php echo $account["account_type_name"] . " n°" . $account["account_number"];?></option>
+                    <?php foreach ($accounts as list ($account, $accountType, $transaction)): ?>
+                      <?php $infoAccount=serialize(array($account->getId(), $accountType->getAccount_type_name() . " n°" . $account->getAccount_number()));?>
+                    <option value='<?php echo $infoAccount;?>'><?php echo $accountType->getAccount_type_name() . " n°" . $account->getAccount_number();?></option>
                     <?php endforeach;?>
                     </select><br>
               <small id="accountDebitHelp" class="form-text"></small><br>
-              <label class="mt-2" for="sumTransfer">Sum of money (min 50€):</label>
-              <input type="number" id="sumTransfer" class="form-control my-1" name="sumTransfer" placeholder="Ex: 70" min="50">
+              <label class="mt-2" for="amount">Sum of money (min 50€):</label>
+              <input type="number" id="amount" class="form-control my-1" name="amount" placeholder="Ex: 70" min="50">
               <small id="sumTransferHelp" class="form-text"></small><br>
               <label class="mt-2" for="accountCredit">Account to credit:</label><br>
                     <select id="accountCredit" name="accountCredit" class="my-1">
                     <option value="">Select</option>
-                    <?php foreach ($accounts as $account): ?>
-                      <?php $infoAccount=serialize(array($account["id"], $account["account_type_name"] . " n°" . $account["account_number"]));?>
-                    <option value='<?php echo $infoAccount;?>'><?php echo $account["account_type_name"] . " n°" . $account["account_number"];?></option>
+                    <?php foreach ($accounts as list ($account, $accountType, $transaction)): ?>
+                      <?php $infoAccount=serialize(array($account->getId(), $accountType->getAccount_type_name() . " n°" . $account->getAccount_number()));?>
+                    <option value='<?php echo $infoAccount;?>'><?php echo $accountType->getAccount_type_name() . " n°" . $account->getAccount_number();?></option>
                     <?php endforeach;?>
                     </select><br>
               <small id="accountCreditHelp" class="form-text"></small><br>
             </div>
           </fieldset>
           <div class="d-flex justify-content-center">
-            <input class="btn btn-transaction my-2" type="submit" value="Confirm" onclick="checkTransferMoney()">
+            <input class="btn btn-transaction my-2" type="submit" name="money_transfer" value="Confirm" onclick="checkTransferMoney()">
           </div>
         </form>
       </div>
@@ -102,8 +106,3 @@
     </div>
  
   </main>
-  <?php
-  // #### Footer ####
-    include "template/footer.php";
-  ?>
-<script src="js/main.js"></script>

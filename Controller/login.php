@@ -1,23 +1,27 @@
 <?php
-  session_start();
+  require "../Model/entity/user.php";
   require "../Model/entity/customer.php";
+  require "../Model/entity/adviser.php";
   require "../Model/login.php";
   include "../template/header.php";
   include "../template/nav.php";
   
   if (isset($_POST['email']) && isset($_POST['password_customer'])) {
     try {
-      $logCustomer = new Customer($_POST);
+      $logUser = new User($_POST);
       $login = new Login();
-      $username = $login->login($logCustomer);
+      $user = $login->login($logUser);
     } catch (Exception $e) {
       $error = $e->getMessage();
     }
-    if ($username) {
-      var_dump($username);
-      $_SESSION['firstname'] = $username['firstname'];
-      $_SESSION['lastname'] = $username['lastname'];
-      $_SESSION['id'] = $username['id'];
+    if ($user) {
+      if ($user['user_type'] === "Adviser") {
+        $user = new Adviser($user);
+      } else {
+        $user = new Customer($user);
+      }
+      session_start();
+      $_SESSION['user'] = $user;
       header('Location: ../index.php');
       exit();
     } else {
@@ -25,4 +29,5 @@
     }
   }
   require "../View/loginView.php";
+  include "../template/footer.php";
 ?>

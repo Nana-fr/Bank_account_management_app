@@ -1,9 +1,3 @@
-<?php
-session_start();
-include "template/header.php";
-include "template/nav.php";
-?>
-  
   <!-- #### Statistics page #### -->
   <main class="container px-3 font-Zen">
 
@@ -24,10 +18,3 @@ include "template/nav.php";
     </div>
 
   </main>
-
-
-<?php
-include "template/footer.php";
-?>
-
-<script src="js/statistics_page.js"></script>

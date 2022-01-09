@@ -16,7 +16,3 @@
 </form>
 <?php endif; ?>
 </main>
-
-<?php
-    include "../template/footer.php";
-?>

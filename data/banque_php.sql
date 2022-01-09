@@ -7,8 +7,10 @@ DROP USER IF EXISTS 'banquePHP'@'localhost';
 CREATE USER 'banquePHP'@'localhost' IDENTIFIED BY 'banque76';
 GRANT ALL PRIVILEGES ON banque_php.* TO 'banquePHP'@'localhost';
 
-CREATE TABLE Customers (
+CREATE TABLE Customer (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_type VARCHAR(50) NOT NULL,
+    adviser_id INT UNSIGNED,
     firstname VARCHAR(30) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
     password_customer VARCHAR(20),
@@ -18,14 +20,15 @@ CREATE TABLE Customers (
     country VARCHAR(20) NOT NULL,
     phone_number VARCHAR(14) NOT NULL,
     email VARCHAR(50),
-    subscript_date DATE NOT NULL,
+    birth_date DATE NOT NULL,
     PRIMARY KEY (id)
 )
 ENGINE=INNODB;
 
-INSERT INTO Customers
-VALUES (1, 'John', 'DOE', 'cochon', '20 rue de la paix', 75000, 'Paris', 'FRANCE', '06-26-26-26-26', 'littlepig@gmail.com', '2021-01-08'),
-        (2, 'Jane', 'DOE', 'spider', '20 rue de la guerre', 76300, 'Sotteville-lès-Rouen', 'FRANCE', '06-06-06-06-06', 'gobankrupt@gmail.com', '2021-03-08');
+INSERT INTO Customer
+VALUES (1, 'Customer', 3, 'John', 'DOE', 'cochon', '20 rue de la paix', 75000, 'Paris', 'FRANCE', '06-26-26-26-26', 'littlepig@gmail.com', '1980-01-08'),
+        (2, 'Customer', 3, 'Jane', 'DOE', 'spider', '20 rue de la guerre', 76300, 'Sotteville-lès-Rouen', 'FRANCE', '06-06-06-06-06', 'gobankrupt@gmail.com', '1975-03-08'),
+        (3, 'Adviser', NULL, 'Peppa', 'PIG', 'iwantyourmoney', '3 rue des lingots', 76710, 'Montville', 'FRANCE', '06-10-10-10-10', 'givememoney@gmail.com', '1960-08-15');
 
 CREATE TABLE Accounts_type (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -52,7 +55,7 @@ CREATE TABLE Accounts (
         REFERENCES Accounts_type(id),
     CONSTRAINT FK_customer_id
         FOREIGN KEY (customer_id)
-        REFERENCES Customers(id)
+        REFERENCES Customer(id)
 )
 ENGINE=INNODB;
 
@@ -65,7 +68,7 @@ VALUES (1, 123456789, 1, 1, 5000.00, '2021-01-08'),
 
 CREATE TABLE Transactions (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    transaction_number INT NOT NULL,
+    transaction_number INT NOT NULL UNIQUE,
     transaction_name VARCHAR(200) NOT NULL,
     transaction_description TEXT NULL,
     amount DECIMAL NOT NULL,
